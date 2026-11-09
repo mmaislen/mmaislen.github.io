@@ -69,8 +69,11 @@
   .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
   .nav ul a { text-decoration: none; color: var(--night-muted); }
   .nav ul a:hover { color: var(--night-ink); }
-  .hero-body { padding-block: clamp(64px, 11vw, 132px) clamp(120px, 15vw, 190px); display: grid; gap: 28px; max-width: 860px; }
-  .hero h1 { font-size: clamp(42px, 7vw, 82px); font-weight: 750; line-height: 1.02; letter-spacing: -0.025em; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(48px, 8vw, 100px) clamp(110px, 14vw, 170px); }
+  .hero-body { display: grid; gap: 28px; min-width: 0; }
+  .hero-photo { margin: 0; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 22px; overflow: hidden; border: 1px solid rgba(246,243,236,.18); box-shadow: 0 30px 60px -24px rgba(0,0,0,.65); }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero h1 { font-size: clamp(40px, 6vw, 74px); font-weight: 750; line-height: 1.02; letter-spacing: -0.025em; }
   .hero h1 em { font-style: normal; color: var(--glow); }
   .hero .sub { font-size: clamp(18px, 2vw, 21px); color: var(--night-muted); max-width: 56ch; }
   .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -126,7 +129,7 @@
   .step p { color: var(--muted); font-size: 15.5px; }
 
   /* About */
-  .about { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .about { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 860px; }
   .portrait { aspect-ratio: 4 / 5; max-width: 100%; border-radius: var(--radius); background: linear-gradient(170deg, var(--night-2), var(--night)); position: relative; overflow: hidden; display: grid; place-items: center; }
   .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .about .text { display: grid; gap: 16px; }
@@ -149,6 +152,8 @@
 
   @media (max-width: 860px) {
     .nav ul { display: none; }
+    .hero-grid { grid-template-columns: 1fr; gap: 24px; padding-top: 32px; }
+    .hero-photo { order: -1; width: 112px; aspect-ratio: 1; border-radius: 50%; border-width: 2px; }
     .problem, .about { grid-template-columns: 1fr; }
     .services { grid-template-columns: 1fr; }
     .service, .service:nth-child(even) { padding: 26px 0; border-right: 0; }
@@ -179,6 +184,7 @@
       </ul>
       <a class="btn btn-primary" href="#contact">Book a call</a>
     </nav>
+    <div class="hero-grid">
     <div class="hero-body">
       <p class="eyebrow">Fractional AI product leadership</p>
       <h1>Everyone has an AI plan. <em>I get it built, shipped and used.</em></h1>
@@ -187,6 +193,10 @@
         <a class="btn btn-primary" href="#contact">Book a 30-minute call</a>
         <a class="btn btn-ghost" href="#work">See the work</a>
       </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="headshot.jpg" alt="Michelle Maislen" width="640" height="800">
+    </figure>
     </div>
   </div>
 </header>
@@ -331,9 +341,6 @@
 
   <section id="about">
     <div class="wrap about">
-      <div class="portrait">
-        <img src="headshot.jpg" alt="Michelle Maislen" width="640" height="800">
-      </div>
       <div class="text">
         <p class="eyebrow">About</p>
         <h2>Hi, I'm Michelle.</h2>
