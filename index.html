@@ -229,6 +229,12 @@
     .trail::before { display: none; }
   }
   @media (max-width: 520px) { .services { grid-template-columns: 1fr; } }
+  .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+  .quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; display: grid; gap: 14px; align-content: space-between; }
+  .quote blockquote { margin: 0; font: 500 19px/1.45 var(--f-display); color: var(--ink); }
+  .quote figcaption { font-size: 15px; color: var(--muted); }
+  .quote figcaption b { color: var(--ink); font-weight: 650; }
+  @media (max-width: 760px) { .quotes { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
@@ -414,6 +420,16 @@
             <details><summary>How it happened</summary><p>On a site this busy, small changes add up fast. I ran A/B tests on the header and navigation that lifted conversion across the whole site, launched an Android banner that tripled app downloads, and led site updates for a record-breaking Anniversary Sale.</p></details>
           </div>
         </article>
+      </div>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote>&ldquo;Her defining trait is tenacity. She took on customer-focused problems with deep technical dependencies across multiple Microsoft organizations&hellip; Even at the hardest moments she always had a next step.&rdquo;</blockquote>
+          <figcaption><b>Brandon Bray</b>, Director of Product Management, Microsoft &middot; managed Michelle on Mesh</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>&ldquo;A PM you want on your team, always positive, driving things forward, opinionated and fair. A great professional and a great human.&rdquo;</blockquote>
+          <figcaption><b>Alexandre Godin</b>, Principal PM, Microsoft Copilot and AI agents in Teams</figcaption>
+        </figure>
       </div>
     </div>
   </section>
