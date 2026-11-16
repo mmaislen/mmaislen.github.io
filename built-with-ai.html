@@ -254,9 +254,9 @@
   .facts { display: flex; flex-wrap: wrap; gap: 8px; }
   .facts span { font-size: 13.5px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: var(--surface); }
   .sub-head { font: 500 12.5px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-  .decisions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: d; }
-  .decision { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; display: grid; gap: 8px; align-content: start; }
-  .decision h3::before { counter-increment: d; content: counter(d); display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 10px; border-radius: 50%; background: var(--tint); color: var(--accent); font: 650 14px/1 var(--f-display); vertical-align: 2px; }
+  .decisions { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; counter-reset: d; }
+  .decision { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
+  .decision h3::before { counter-increment: d; content: counter(d); display: grid; place-items: center; width: 26px; height: 26px; margin-bottom: 10px; border-radius: 50%; background: var(--tint); color: var(--accent); font: 650 14px/1 var(--f-display); vertical-align: 2px; }
   .decision p { color: var(--muted); font-size: 16px; }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 12px; align-content: start; }
@@ -341,6 +341,7 @@
           <p class="sub-head">Product calls I made</p>
           <div class="decisions">
             <div class="decision"><h3>Stripes, not rings</h3><p>Rings looked great but were hard to read.</p></div>
+            <div class="decision"><h3>Hand-drawn style</h3><p>Tested six looks. A weather journal felt personal.</p></div>
             <div class="decision"><h3>Lifetime only</h3><p>Years before you were born just added noise.</p></div>
             <div class="decision"><h3>One timeline</h3><p>Past, today and the next ten years in one view.</p></div>
             <div class="decision"><h3>A name worth clicking</h3><p>The title is the question people want answered.</p></div>
