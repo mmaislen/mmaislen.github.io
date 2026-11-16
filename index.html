@@ -236,6 +236,14 @@
   .quote figcaption b { color: var(--ink); font-weight: 650; }
   @media (max-width: 760px) { .quotes { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  .built { margin-top: 30px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 22px; align-items: center; padding: 22px 26px; border-radius: var(--radius); background: var(--night); color: var(--night-ink); text-decoration: none; transition: transform .15s ease; }
+  .built:hover { transform: translateY(-2px); }
+  .built .eyebrow { color: var(--glow); }
+  .built-text { font-size: 17px; color: var(--night-muted); }
+  .built-text b { color: var(--night-ink); font-family: var(--f-display); font-weight: 650; }
+  .built-go { font: 650 26px/1 var(--f-display); color: var(--glow); }
+  @media (max-width: 700px) { .built { grid-template-columns: minmax(0, 1fr) auto; } .built .eyebrow { grid-column: 1 / -1; } }
+  @media (prefers-reduced-motion: reduce) { .built { transition: none; } }
 </style>
 </head>
 <body>
@@ -250,6 +258,7 @@
       <ul>
         <li><a href="#climb">Approach</a></li>
         <li><a href="#work">Work</a></li>
+        <li><a href="built-with-ai.html">Built with AI</a></li>
         <li><a href="#engagements">Engagements</a></li>
       </ul>
       <a class="btn btn-primary" href="#contact">Book a call</a>
@@ -431,6 +440,11 @@
           <figcaption><b>Alexandre Godin</b>, Principal PM, Microsoft Copilot and AI agents in Teams</figcaption>
         </figure>
       </div>
+      <a class="built" href="built-with-ai.html">
+        <span class="eyebrow">Built with AI</span>
+        <span class="built-text"><b>I build things too.</b> See a live app I made with AI, from idea to launch, and the AI agents that save me 5–10 hours a week.</span>
+        <span class="built-go" aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
