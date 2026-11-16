@@ -258,6 +258,13 @@
   .decision { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
   .decision h3::before { counter-increment: d; content: counter(d); display: grid; place-items: center; width: 26px; height: 26px; margin-bottom: 10px; border-radius: 50%; background: var(--tint); color: var(--accent); font: 650 14px/1 var(--f-display); vertical-align: 2px; }
   .decision p { color: var(--muted); font-size: 16px; }
+  .evalbox { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 14px; }
+  .evalbox h3 { font: 650 22px/1.2 var(--f-display); }
+  .evalbox > p { color: var(--muted); font-size: 16px; max-width: 62ch; }
+  .evalnums { display: flex; flex-wrap: wrap; gap: 10px 32px; }
+  .evalnums div { display: grid; }
+  .evalnums b { font: 650 28px/1.1 var(--f-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+  .evalnums span { color: var(--muted); font-size: 14px; }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 12px; align-content: start; }
   .panel p { color: var(--muted); font-size: 16px; }
@@ -334,7 +341,7 @@
         </div>
 
         <div class="facts" aria-label="What it's made of">
-          <span>Any town worldwide</span><span>Real weather back to 1940</span><span>Next 10 years, modeled</span><span>Live forecast</span><span>Public APIs</span>
+          <span>Any town worldwide</span><span>Real weather back to 1940</span><span>Next 10 years, modeled</span><span>Live forecast</span><span>AI-written note</span><span>Public APIs</span>
         </div>
 
         <div>
@@ -344,6 +351,19 @@
             <div class="decision"><h3>Cut the noise</h3><p>Showed only the years from your chosen date on, so the story stays clear.</p></div>
             <div class="decision"><h3>Looked ahead</h3><p>Added a predictive view of the next ten years.</p></div>
             <div class="decision"><h3>Pointed out what matters</h3><p>Callouts flag the warmest, coolest and wettest years, so people don't have to hunt.</p></div>
+          </div>
+          <div class="evalbox" id="ai-note">
+            <p class="sub-head" style="margin:0">Testing the AI before shipping it</p>
+            <h3>I set the bar before AI wrote a word.</h3>
+            <p>The note under the chart is now written by AI. First I defined what a good note is, then tested it on 25 cases, including traps like a missing record and a label that tries to hijack the prompt.</p>
+            <div class="evalnums">
+              <div><b>7</b><span>rules for a good note</span></div>
+              <div><b>25</b><span>test cases</span></div>
+              <div><b>2 → 17</b><span>of 25, first try to ship</span></div>
+              <div><b>0</b><span>invented numbers</span></div>
+            </div>
+            <p>Every live note is checked again before anyone sees it. If one fails, the page shows the plain note instead.</p>
+            <div class="links"><a class="btn btn-line" href="https://github.com/mmaislen/Weather-location/blob/main/evals/README.md" target="_blank" rel="noopener">See the test results</a></div>
           </div>
         </div>
 
