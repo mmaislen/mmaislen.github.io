@@ -113,6 +113,34 @@
   .case div { display: grid; gap: 4px; }
   .case dt { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700; color: var(--moss); }
   .case dd { margin: 0; font-size: 17px; line-height: 1.6; }
+  /* Visual case studies: option A = trail, option B = before/after */
+  .trail { list-style: none; margin: 18px 0 10px; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 18px; position: relative; }
+  .trail li:not(:last-child)::after { content: ""; position: absolute; top: 18px; left: 44px; right: -12px; border-top: 2px dashed var(--contour); }
+  .trail li { position: relative; display: grid; gap: 6px; align-content: start; }
+  .ti { width: 38px; height: 38px; border-radius: 50%; background: var(--paper); border: 2px solid var(--fir); display: grid; place-items: center; color: var(--fir); position: relative; }
+  .trail li:last-child .ti { background: var(--blaze); border-color: var(--blaze); color: var(--fir); }
+  .ti svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tl { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; color: var(--moss); margin-top: 4px; }
+  .tt { font-size: 16px; line-height: 1.4; color: var(--ink); }
+  .trail li:last-child .tt { font-weight: 650; color: var(--fir); }
+  .ba { display: flex; align-items: center; gap: 22px; margin: 16px 0 6px; }
+  .ba > div { display: grid; gap: 2px; }
+  .ba .n { font-weight: 800; font-stretch: 120%; font-size: 40px; line-height: 1; color: var(--fir); }
+  .ba .b .n { color: var(--moss); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--contour); }
+  .ba .a .n { color: var(--fir); }
+  .ba .c { font-size: 14px; color: var(--moss); }
+  .ba .arr { font-size: 32px; color: var(--blaze); font-weight: 700; }
+  #cases[data-v="a"] .ba { display: none; }
+  #cases[data-v="b"] .trail { display: none; }
+  @media (max-width: 640px) {
+    .trail { grid-template-columns: 1fr; gap: 14px; }
+    .trail li:not(:last-child)::after { left: 18px; right: auto; top: 44px; bottom: -12px; border-top: 0; border-left: 2px dashed var(--contour); }
+    .trail li { grid-template-columns: 38px 1fr; column-gap: 14px; }
+    .trail li .ti { grid-row: span 2; }
+    .tl { margin-top: 0; }
+    .ba .n { font-size: 30px; }
+  }
+
   .cases-ask { margin-top: 28px; font-size: 18px; }
   .cases-ask a { color: var(--fir); font-weight: 650; }
   @media (max-width: 640px) { #cases .entry .result { font-size: 18px; margin-bottom: 4px; } .case { padding-left: 14px; } }
