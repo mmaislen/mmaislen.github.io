@@ -113,6 +113,11 @@
   .case div { display: grid; gap: 4px; }
   .case dt { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700; color: var(--moss); }
   .case dd { margin: 0; font-size: 17px; line-height: 1.6; }
+  .pain { font-size: 18px; line-height: 1.5; color: var(--ink); max-width: 38em; margin: 4px 0 8px; }
+  .fix { font-size: 17px; line-height: 1.5; color: var(--moss); max-width: 38em; margin: 0 0 12px; }
+  .fix b { color: var(--fir); font-weight: 700; }
+  .cta-line { margin-top: 10px; }
+  .cta-line a { color: var(--fir); font-weight: 650; }
   .cases-ask { margin-top: 28px; font-size: 18px; }
   .cases-ask a { color: var(--fir); font-weight: 650; }
   @media (max-width: 640px) { #cases .entry .result { font-size: 18px; margin-bottom: 4px; } .case { padding-left: 14px; } }
