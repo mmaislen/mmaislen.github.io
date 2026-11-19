@@ -49,7 +49,7 @@
   .hero-body { position: relative; z-index: 1; }
   .hero h1 { margin-bottom: 30px; }
   .intro { display: flex; gap: 18px; align-items: flex-start; max-width: 36em; }
-  .intro img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; flex: none; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--contour); }
+  .intro img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: 50% 50%; flex: none; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--contour); }
   .intro p { color: var(--ink); font-size: 19px; }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
   .terrain { position: relative; aspect-ratio: 1 / 0.92; margin-right: calc(var(--gutter) * -1); cursor: grab; touch-action: pan-y; }
@@ -173,7 +173,7 @@
   .faq details:last-child { border-bottom: 1px solid var(--contour); }
   .faq summary { cursor: pointer; font-weight: 650; color: var(--fir); font-size: 18px; }
   .faq details p { margin-top: 10px; font-size: 17px; }
-  .about img { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; margin-bottom: 22px; }
+  .about img { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: 50% 50%; margin-bottom: 22px; }
   .about p + p { margin-top: 14px; }
 
   /* CTA */

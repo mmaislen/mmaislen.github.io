@@ -11,6 +11,3 @@ Live at https://mmaislen.github.io (served by GitHub Pages). Custom domain 333co
 4. At your domain registrar, add DNS records:
    - `A` records for `@` pointing to 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153
    - `CNAME` record for `www` pointing to `<your-github-username>.github.io`
-
-## Mount Si model
-`terrain.js` draws Mount Si from real elevation data: a 73 x 73 height grid (about 3.9 km across) sampled from AWS Terrain Tiles (Mapzen/Tilezen terrarium, derived from USGS 3DEP and other public sources).
