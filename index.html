@@ -14,245 +14,196 @@
 <meta name="description" content="Pick the right product bets. Then get them built, shipped and used.">
 <title>333 Consulting</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Michelle Maislen helps teams turn AI plans into products people actually use.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap">
 <style>
-  /* Layout: dusk Cascades hero, then one picture per section with a line or two of text. The adoption "elevation profile" carries the pitch. */
+  /* Concept: a survey drawing of Mount Si. One bold thing (a live 3D contour model in the hero); everything else is quiet, left-aligned and drawn with the same contour line. One family, Archivo, with its width axis doing the expressive work: expanded for headlines, normal for reading. */
   :root {
-    --bg: #f2f5f6;
-    --surface: #ffffff;
-    --ink: #14212d;
-    --muted: #4f5e6a;
-    --line: #d5dde2;
-    --accent: #a85a17;
-    --tint: #f6e3cc;
-    --cliff: #3c4f5e;
-    --night: #0f1d2b;
-    --night-2: #1d3447;
-    --night-ink: #f6f3ec;
-    --night-muted: #c3d0d8;
-    --glow: #f2c48d;
-    --f-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
-    --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-    --wrap: 1120px;
-    --radius: 16px;
+    --fog: #eef2ef;
+    --paper: #f8faf8;
+    --fir: #183a31;
+    --ink: #1f2a26;
+    --moss: #56655e;
+    --contour: #a9bbb2;
+    --blaze: #f2b01e;
+    --fir-ink: #e8efe9;
+    --fir-muted: #a9c0b5;
+    --f: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --wrap: 1180px;
+    --gutter: clamp(16px, 4vw, 40px);
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0c1722; --surface: #12212e; --ink: #e8eef2; --muted: #a2b2bd;
-      --line: #23394a; --accent: #f2c48d; --tint: #2a2a24; --cliff: #2c3d4c; color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0c1722; --surface: #12212e; --ink: #e8eef2; --muted: #a2b2bd;
-    --line: #23394a; --accent: #f2c48d; --tint: #2a2a24; --cliff: #2c3d4c; color-scheme: dark;
-  }
-
   * { box-sizing: border-box; }
-  body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
-  a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
-  .wrap { max-width: var(--wrap); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
-  h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
-  h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 650; line-height: 1.1; }
-  h3 { font-size: 20px; font-weight: 650; line-height: 1.25; }
-  p { margin: 0; }
-  .eyebrow { font: 500 12.5px/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
-  .lede { color: var(--muted); max-width: 56ch; font-size: 18px; }
-  section { padding-block: clamp(44px, 6vw, 76px); }
-  .section-head { display: grid; gap: 10px; margin-bottom: 26px; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--fog); color: var(--ink); font-family: var(--f); font-size: 18px; line-height: 1.6; font-stretch: 100%; }
+  img, svg, canvas { display: block; max-width: 100%; }
+  a { color: var(--fir); text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--blaze); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
 
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font: 600 16px/1 var(--f-body); text-decoration: none; transition: transform .15s ease, background-color .15s ease; }
-  .btn-primary { background: var(--glow); color: #14212d; }
-  .btn-primary:hover { transform: translateY(-1px); background: #f6d2a6; }
-  .btn-ghost { color: var(--night-ink); border: 1px solid rgba(246,243,236,.35); }
-  .btn-ghost:hover { border-color: var(--night-ink); }
+  h1, h2, h3 { font-family: var(--f); color: var(--fir); margin: 0; font-weight: 800; letter-spacing: -0.01em; }
+  h1 { font-stretch: 125%; font-size: clamp(36px, 4.7vw, 66px); line-height: 1.0; letter-spacing: -0.025em; }
+  h2 { font-stretch: 118%; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; max-width: 22ch; }
+  h3 { font-stretch: 110%; font-size: 22px; line-height: 1.25; font-weight: 700; }
+  p { margin: 0; }
+
+  .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border-radius: 4px; font-weight: 650; font-size: 17px; text-decoration: none; border: 2px solid var(--fir); }
+  .btn-primary { background: var(--fir); color: var(--fir-ink); }
+  .btn-primary:hover { background: #0f2a23; }
+  .btn-ghost { color: var(--fir); background: transparent; }
+  .btn-ghost:hover { background: rgba(24,58,49,.07); }
+
+  /* Nav */
+  .nav { display: flex; align-items: center; gap: 28px; padding: 22px 0; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-stretch: 120%; font-size: 19px; color: var(--fir); text-decoration: none; margin-right: auto; }
+  .mark svg { width: 30px; height: 22px; }
+  .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { color: var(--ink); text-decoration: none; font-size: 16px; font-weight: 500; }
+  .nav ul a:hover { color: var(--fir); text-decoration: underline; }
+  .nav .btn { min-height: 42px; padding: 8px 18px; font-size: 16px; }
 
   /* Hero */
-  .hero { position: relative; background: var(--night); color: var(--night-ink); overflow: hidden; isolation: isolate; }
-  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
-  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
-  .mark { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 750 20px/1 var(--f-display); }
-  .mark svg { width: 30px; height: 22px; }
-  .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
-  .nav ul a { text-decoration: none; color: var(--night-muted); }
-  .nav ul a:hover { color: var(--night-ink); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 330px); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(32px, 6vw, 72px) clamp(36px, 5vw, 56px); }
-  .hero-body { display: grid; gap: 24px; min-width: 0; }
-  .hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 750; line-height: 1.02; letter-spacing: -0.025em; }
-  .hero h1 em { font-style: normal; color: var(--glow); }
-  .hero .sub { font-size: clamp(18px, 2vw, 20px); color: var(--night-muted); max-width: 46ch; }
-  .hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-  .hero .eyebrow { color: var(--glow); }
-  .hero-photo { margin: 0; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 22px; overflow: hidden; border: 1px solid rgba(246,243,236,.18); box-shadow: 0 30px 60px -24px rgba(0,0,0,.65); }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero { position: relative; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: center; padding: 40px 0 56px; }
+  .hero-body { position: relative; z-index: 1; }
+  .hero h1 { margin-bottom: 30px; }
+  .intro { display: flex; gap: 18px; align-items: flex-start; max-width: 36em; }
+  .intro img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; flex: none; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--contour); }
+  .intro p { color: var(--ink); font-size: 19px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .terrain { position: relative; aspect-ratio: 1 / 0.92; margin-right: calc(var(--gutter) * -1); cursor: grab; touch-action: pan-y; }
+  .terrain:active { cursor: grabbing; }
+  .terrain canvas { width: 100%; height: 100%; }
+  .terrain figcaption { position: absolute; right: var(--gutter); bottom: 4px; font-size: 14px; color: var(--moss); font-style: italic; }
 
-  /* Numbers strip */
-  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid rgba(246,243,236,.16); }
-  .stat { padding: 26px 20px 30px 0; display: grid; gap: 4px; align-content: start; }
-  .stat + .stat { padding-left: 20px; border-left: 1px solid rgba(246,243,236,.16); }
-  .stat b { font: 750 clamp(30px, 4vw, 44px)/1 var(--f-display); color: var(--glow); letter-spacing: -0.02em; }
-  .stat span { font-size: 14.5px; color: var(--night-muted); line-height: 1.4; }
+  .proof { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--fir); }
+  .proof p { padding: 18px 20px 18px 0; font-size: 16px; line-height: 1.45; color: var(--moss); }
+  .proof p + p { padding-left: 20px; border-left: 1px solid var(--contour); }
+  .proof b { display: block; color: var(--fir); font-stretch: 115%; font-size: 21px; font-weight: 750; margin-bottom: 2px; }
+  .shipped { padding: 14px 0 0; font-size: 15px; color: var(--moss); border-top: 1px solid var(--contour); }
+  .shipped b { color: var(--ink); font-weight: 600; }
 
-  /* Elevation profile */
-  .profile-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(12px, 2.4vw, 24px); overflow-x: auto; }
-  .profile { display: block; width: 100%; min-width: 620px; height: auto; }
-  .profile .grid line { stroke: var(--line); stroke-width: 1; }
-  .profile .area { fill: var(--tint); }
-  .profile .route { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
-  .profile .climb { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
-  .profile .stop { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
-  .profile .summit { fill: var(--accent); stroke: var(--accent); }
-  .profile text { font-family: var(--f-mono); font-size: 13px; fill: var(--muted); letter-spacing: .06em; }
-  .profile .stage { font-family: var(--f-display); font-size: 16px; font-weight: 650; fill: var(--ink); letter-spacing: 0; }
-  .profile .note { font-family: var(--f-body); font-size: 15px; font-weight: 600; fill: var(--ink); letter-spacing: 0; }
-  .profile .note-accent { fill: var(--accent); }
-  .profile .flag-pole { stroke: var(--ink); stroke-width: 2; }
-  .profile .flag { fill: var(--accent); }
-  .profile .callout { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 4; fill: none; }
-  .profile .cliff { fill: var(--cliff); }
-  .profile .tower { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
-  .profile .cable { fill: none; stroke: var(--ink); stroke-width: 2; }
-  .profile .hanger line { stroke: var(--muted); stroke-width: 1.5; }
-  .profile .plank rect { fill: var(--accent); }
-  .profile .plank-label { font-family: var(--f-body); font-size: 14px; font-weight: 600; fill: var(--ink); letter-spacing: 0; }
-  .caption { margin-top: 14px; color: var(--muted); max-width: 60ch; }
+  section { padding: clamp(64px, 9vw, 112px) 0; }
+  section h2 { margin-bottom: 28px; }
 
-  /* Services */
-  .services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
-  .service { display: grid; gap: 12px; align-content: start; }
-  .icon { width: 52px; height: 52px; border-radius: 14px; background: var(--tint); display: grid; place-items: center; color: var(--accent); }
-  .icon svg { width: 28px; height: 28px; }
-  .service p { color: var(--muted); font-size: 16px; }
+  /* The adoption gap */
+  .profile { width: 100%; height: auto; margin: 8px 0 18px; }
+  .profile .cliff { fill: var(--fir); }
+  .profile .tower, .profile .hanger line { stroke: var(--fir); stroke-width: 3; }
+  .profile .cable { stroke: var(--fir); stroke-width: 2.5; fill: none; }
+  .profile .plank rect { fill: var(--blaze); stroke: var(--fir); stroke-width: 1.5; }
+  .profile text { font-family: var(--f); fill: var(--moss); font-size: 15px; }
+  .profile .stage { fill: var(--fir); font-weight: 750; font-size: 19px; font-stretch: 115%; }
+  .profile .plank-label { fill: var(--fir); font-size: 14px; font-weight: 600; }
+  .profile .gap { fill: var(--fir); font-weight: 750; font-size: 19px; font-stretch: 115%; }
+  .profile .callout { stroke: var(--moss); stroke-width: 1.5; stroke-dasharray: 3 4; fill: none; }
+  .profile .flag-pole { stroke: var(--fir); stroke-width: 2.5; }
+  .profile .flag { fill: var(--blaze); }
+  .profile .contours path { fill: none; stroke: var(--contour); stroke-width: 1; }
+  .caption { max-width: 40em; color: var(--ink); font-size: 19px; }
 
-  /* Work cards */
-  .band { background: var(--surface); border-block: 1px solid var(--line); }
-  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
-  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
-  .card .art { background: var(--night); aspect-ratio: 16 / 7; display: grid; place-items: center; }
-  .card .art svg { width: 78%; height: 78%; }
-  .card .body { padding: 22px 24px 24px; display: grid; gap: 8px; align-content: start; }
-  .card .result { font: 750 28px/1.05 var(--f-display); color: var(--accent); letter-spacing: -0.015em; }
-  .card .where { font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .card p { color: var(--muted); font-size: 16px; }
-  .card details { margin-top: 4px; font-size: 15.5px; color: var(--muted); }
-  .card summary { cursor: pointer; color: var(--ink); font-weight: 600; font-size: 15px; }
-  .card details p { margin-top: 8px; }
+  .lifecycle { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); position: relative; }
+  .lifecycle::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 2px; background: var(--fir); }
+  .lifecycle li { position: relative; padding-top: 24px; font-weight: 650; color: var(--fir); font-stretch: 112%; font-size: 17px; }
+  .lifecycle li::before { content: ""; position: absolute; left: 0; top: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--fog); border: 2px solid var(--fir); }
+  .lifecycle li:last-child::before { background: var(--blaze); }
+  .lifecycle-note { margin-top: 14px; color: var(--moss); font-size: 15px; }
 
-  /* Who */
-  .who-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-  .who-item { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 16px; align-items: start; }
-  .who-item p { color: var(--muted); font-size: 16px; margin-top: 4px; }
+  /* Work as a field log */
+  #work { background: var(--paper); border-top: 1px solid var(--contour); border-bottom: 1px solid var(--contour); }
+  .log { border-top: 1.5px solid var(--fir); }
+  .entry { display: grid; grid-template-columns: 240px 1fr; gap: 8px 40px; padding: 26px 0; border-bottom: 1px solid var(--contour); }
+  .entry .where { color: var(--moss); font-size: 15px; }
+  .entry .result { color: var(--fir); font-weight: 750; font-stretch: 115%; font-size: 20px; line-height: 1.25; }
+  .entry h3 { margin-bottom: 6px; }
+  .entry details summary { cursor: pointer; color: var(--fir); font-weight: 600; font-size: 16px; width: fit-content; list-style: none; }
+  .entry details summary::-webkit-details-marker { display: none; }
+  .entry details summary::before { content: "+"; display: inline-block; width: 1.1em; font-weight: 700; }
+  .entry details[open] summary::before { content: "\2212"; }
+  .entry details p { margin-top: 10px; max-width: 40em; }
 
-  /* Engagement timeline */
-  .timeline { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(18px, 3vw, 32px); overflow-x: auto; }
-  .tl { display: block; width: 100%; min-width: 600px; height: auto; }
-  .tl .axis line { stroke: var(--line); }
-  .tl text { font-family: var(--f-mono); font-size: 12.5px; fill: var(--muted); letter-spacing: .05em; }
-  .tl .name { font-family: var(--f-display); font-size: 17px; font-weight: 650; fill: var(--ink); letter-spacing: 0; }
-  .tl .desc { font-family: var(--f-body); font-size: 14px; fill: var(--muted); letter-spacing: 0; }
-  .tl .bar { fill: var(--accent); }
-  .tl .bar-soft { fill: var(--tint); stroke: var(--accent); stroke-width: 1.5; }
-  .trail { margin-top: 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; position: relative; }
-  .trail::before { content: ""; position: absolute; left: 8px; right: 8px; top: 8px; border-top: 2px dashed var(--line); }
-  .waypoint { position: relative; display: grid; gap: 8px; padding-top: 30px; }
-  .waypoint::before { content: ""; position: absolute; top: 0; left: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); }
-  .waypoint:last-child::before { background: var(--accent); }
-  .waypoint b { font: 650 17px/1.3 var(--f-display); }
-  .waypoint span { color: var(--muted); font-size: 15px; }
+  .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
+  .quote { margin: 0; padding-left: 22px; border-left: 3px solid var(--blaze); }
+  .quote blockquote { margin: 0 0 14px; font-size: 21px; line-height: 1.45; color: var(--fir); font-style: italic; font-weight: 450; }
+  .quote figcaption { font-size: 15px; color: var(--moss); }
+  .quote figcaption b { color: var(--ink); }
+  .built { margin-top: 56px; font-size: 19px; }
+  .built a { font-weight: 650; }
 
-  .paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  .path { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: grid; gap: 14px; align-content: start; }
-  .path-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .trail-tag { font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .badge { justify-self: start; font-size: 13.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--tint); color: var(--accent); }
-  .best, .get { display: grid; gap: 6px; }
-  .best > span, .get > span { font: 500 11.5px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .best p { font-size: 16px; color: var(--ink); }
-  .get ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-  .get li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 15.5px; color: var(--muted); }
-  .get li svg { width: 18px; height: 18px; color: var(--accent); margin-top: 3px; }
+  /* Engagements */
+  .paths { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--fir); }
+  .path { padding: 24px 28px 8px; }
+  .path:first-child { padding-left: 0; }
+  .path + .path { border-left: 1px solid var(--contour); }
+  .path .tag { font-style: italic; color: var(--moss); font-size: 15px; }
+  .path h3 { margin: 4px 0 4px; }
+  .path .badge { color: var(--fir); font-weight: 600; font-size: 16px; }
+  .path .best { margin: 18px 0; font-size: 17px; color: var(--ink); }
+  .path .get-h { font-size: 15px; color: var(--moss); margin-bottom: 6px; }
+  .path ul { margin: 0; padding: 0; list-style: none; }
+  .path li { position: relative; padding-left: 20px; margin: 6px 0; font-size: 16px; line-height: 1.45; }
+  .path li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; background: var(--fir); transform: rotate(45deg); }
 
-  .shipped { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-block: 2px 26px; }
-  .shipped span { font: 500 11.5px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--night-muted); }
-  .shipped p { font-size: 15px; color: var(--night-ink); }
-  .lifecycle-wrap { margin-top: 28px; display: grid; gap: 14px; }
-  .lifecycle { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; position: relative; }
-  .lifecycle::before { content: ""; position: absolute; left: 8%; right: 8%; top: 22px; border-top: 2px dashed var(--line); z-index: 0; }
-  .lc-step { display: grid; justify-items: center; gap: 8px; text-align: center; position: relative; z-index: 1; }
-  .lc-step .icon { width: 44px; height: 44px; border-radius: 50%; }
-  .lc-step .icon svg { width: 22px; height: 22px; }
-  .lc-step span { font: 650 15px/1.2 var(--f-display); }
-  .card.wide { grid-column: 1 / -1; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: none; }
-  .card.wide .art { aspect-ratio: auto; min-height: 180px; }
-
-  .faq { display: grid; gap: 10px; max-width: 820px; }
-  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
-  .faq summary { cursor: pointer; font: 650 18px/1.3 var(--f-display); color: var(--ink); }
-  .faq details p { margin-top: 10px; color: var(--muted); max-width: 64ch; }
-
-  /* About */
-  .about { max-width: 820px; display: grid; gap: 16px; }
-  .about p { color: var(--muted); }
-  .creds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .creds span { font-size: 13.5px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  /* FAQ + About */
+  .faq-about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 88px); }
+  .faq details { border-top: 1px solid var(--contour); padding: 16px 0; }
+  .faq details:last-child { border-bottom: 1px solid var(--contour); }
+  .faq summary { cursor: pointer; font-weight: 650; color: var(--fir); font-size: 18px; }
+  .faq details p { margin-top: 10px; font-size: 17px; }
+  .about img { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; margin-bottom: 22px; }
+  .about p + p { margin-top: 14px; }
 
   /* CTA */
-  .cta { background: var(--night); color: var(--night-ink); position: relative; overflow: hidden; isolation: isolate; }
-  .cta canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
-  .cta-inner { display: grid; gap: 18px; padding-block: clamp(56px, 8vw, 88px); }
-  .cta-inner > * { max-width: 720px; }
-  .cta h2 { font-size: clamp(34px, 5vw, 54px); }
-  .cta p { color: var(--night-muted); font-size: 18px; }
-  footer { background: var(--night); color: var(--night-muted); font-size: 14px; border-top: 1px solid rgba(246,243,236,.1); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 26px; }
+  .cta { position: relative; background: var(--fir); color: var(--fir-ink); overflow: hidden; }
+  .cta canvas { position: absolute; right: -6%; top: 50%; transform: translateY(-50%); width: min(720px, 70%); aspect-ratio: 1 / .92; height: auto; opacity: .55; pointer-events: none; }
+  .cta .wrap { position: relative; }
+  .cta h2 { color: var(--fir-ink); margin-bottom: 16px; }
+  .cta p { color: var(--fir-muted); max-width: 32em; }
+  .cta .btn-primary { background: var(--blaze); color: var(--fir); border-color: var(--blaze); }
+  .cta .btn-primary:hover { background: #ffc23d; }
+  .cta .btn-ghost { color: var(--fir-ink); border-color: var(--fir-muted); }
+  .cta .btn-ghost:hover { background: rgba(255,255,255,.08); }
+  .cta .actions { margin: 28px 0 18px; }
+  .cta a:not(.btn) { color: var(--blaze); }
 
-  @media (max-width: 960px) {
-    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (max-width: 860px) {
+  footer { background: var(--fir); color: var(--fir-muted); font-size: 15px; border-top: 1px solid rgba(169,192,181,.25); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 22px; padding-bottom: 22px; }
+
+  @media (max-width: 900px) {
     .nav ul { display: none; }
-    .hero-grid { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; }
-    .hero-photo { order: -1; width: 112px; aspect-ratio: 1; border-radius: 50%; border-width: 2px; }
-    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .stat:nth-child(3) { padding-left: 0; border-left: 0; }
-    .stat:nth-child(n+3) { border-top: 1px solid rgba(246,243,236,.16); }
-    .cards, .who-grid, .paths { grid-template-columns: 1fr; }
-    .card.wide { grid-template-columns: 1fr; }
-    .card.wide .art { aspect-ratio: 16 / 7; min-height: 0; }
-    .lifecycle { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; }
+    .hero-grid { grid-template-columns: 1fr; padding-top: 16px; }
+    .terrain { order: -1; margin: -10px calc(var(--gutter) * -1) -40px; aspect-ratio: 1 / .6; }
+    .terrain figcaption { display: none; }
+    .proof { grid-template-columns: 1fr 1fr; }
+    .proof p:nth-child(3) { padding-left: 0; border-left: 0; }
+    .proof p:nth-child(n+3) { border-top: 1px solid var(--contour); }
+    .entry { grid-template-columns: 1fr; }
+    .quotes, .faq-about { grid-template-columns: 1fr; }
+    .paths { grid-template-columns: 1fr; }
+    .path, .path:first-child { padding: 22px 0; }
+    .path + .path { border-left: 0; border-top: 1px solid var(--contour); }
+    .lifecycle { grid-template-columns: repeat(3, 1fr); row-gap: 28px; }
     .lifecycle::before { display: none; }
-    .trail { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
-    .trail::before { display: none; }
+    .cta canvas { width: 120%; right: -50%; opacity: .3; }
   }
-  @media (max-width: 520px) { .services { grid-template-columns: 1fr; } }
-  .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
-  .quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; display: grid; gap: 14px; align-content: space-between; }
-  .quote blockquote { margin: 0; font: 500 19px/1.45 var(--f-display); color: var(--ink); }
-  .quote figcaption { font-size: 15px; color: var(--muted); }
-  .quote figcaption b { color: var(--ink); font-weight: 650; }
-  @media (max-width: 760px) { .quotes { grid-template-columns: 1fr; } }
-  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
-  .built { margin-top: 30px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 22px; align-items: center; padding: 22px 26px; border-radius: var(--radius); background: var(--night); color: var(--night-ink); text-decoration: none; transition: transform .15s ease; }
-  .built:hover { transform: translateY(-2px); }
-  .built .eyebrow { color: var(--glow); }
-  .built-text { font-size: 17px; color: var(--night-muted); }
-  .built-text b { color: var(--night-ink); font-family: var(--f-display); font-weight: 650; }
-  .built-go { font: 650 26px/1 var(--f-display); color: var(--glow); }
-  @media (max-width: 700px) { .built { grid-template-columns: minmax(0, 1fr) auto; } .built .eyebrow { grid-column: 1 / -1; } }
-  @media (prefers-reduced-motion: reduce) { .built { transition: none; } }
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    .intro img { width: 56px; height: 56px; }
+    .intro p { font-size: 17px; }
+    .proof p, .proof p + p { padding: 14px 0; border-left: 0; }
+    .proof { grid-template-columns: 1fr; }
+    .proof p + p { border-top: 1px solid var(--contour); }
+    .nav .btn { display: none; }
+  }
 </style>
 </head>
 <body>
 <header class="hero" id="top">
-  <canvas id="ridges-hero" aria-hidden="true"></canvas>
   <div class="wrap">
     <nav class="nav" aria-label="Main">
       <a class="mark" href="#top" aria-label="333 Consulting home">
-        <svg viewBox="0 0 30 22" aria-hidden="true"><path d="M1 21 L9 7 L13 13 L18 4 L29 21 Z" fill="#f2c48d"/></svg>
+        <svg viewBox="0 0 30 22" aria-hidden="true"><path d="M2 20 Q9 4 15 3 Q21 4 28 20" fill="none" stroke="#183a31" stroke-width="2"/><path d="M7 20 Q11 9 15 8.5 Q19 9 23 20" fill="none" stroke="#183a31" stroke-width="2"/><path d="M12 20 Q13.5 14 15 14 Q16.5 14 18 20" fill="#f2b01e" stroke="#183a31" stroke-width="2"/></svg>
         333 Consulting
       </a>
       <ul>
@@ -265,323 +216,285 @@
     </nav>
     <div class="hero-grid">
       <div class="hero-body">
-        <p class="eyebrow">Fractional product leadership</p>
-        <h1>Pick the right product bets.<br> <em>Then get them built, shipped and used.</em></h1>
-        <p class="sub">I'm Michelle Maislen, a product leader. I help teams decide what's worth building, then get it into the hands of real people. I'm at the forefront of bringing AI into products used by millions, and know which AI investments pay off and which don't.</p>
+        <h1>Pick the right product bets. Then get them built, shipped and used.</h1>
+        <div class="intro">
+          <img src="headshot.jpg" alt="Michelle Maislen" width="640" height="800">
+          <p>I'm Michelle Maislen, a product leader. I help teams decide what's worth building, then get it into the hands of real people. I'm at the forefront of bringing AI into products used by millions, and know which AI investments pay off and which don't.</p>
+        </div>
         <div class="actions">
           <a class="btn btn-primary" href="#contact">Book a 30-minute call</a>
           <a class="btn btn-ghost" href="#work">See the work</a>
         </div>
       </div>
-      <figure class="hero-photo"><img src="headshot.jpg" alt="Michelle Maislen" width="640" height="800"></figure>
+      <figure class="terrain" style="margin-top:0;margin-bottom:0">
+        <canvas id="terrain-hero" role="img" aria-label="A 3D contour model of Mount Si, near Michelle's home in North Bend. Drag to turn it."></canvas>
+        <figcaption>A stylized Mount Si, my home trail. Drag to turn it.</figcaption>
+      </figure>
     </div>
-    <div class="stats">
-      <div class="stat"><b>Millions</b><span>of people reached in Microsoft Teams</span></div>
-      <div class="stat"><b>1st</b><span>sign language detection AI to ship at scale</span></div>
-      <div class="stat"><b>$2M+</b><span>conversion lift from A/B tests on Nordstrom.com</span></div>
-      <div class="stat"><b>Accenture</b><span>onboarded every new employee on Microsoft Mesh</span></div>
+    <div class="proof">
+      <p><b>Millions</b>of people reached in Microsoft Teams</p>
+      <p><b>1st</b>sign language detection AI to ship at scale</p>
+      <p><b>$2M+</b>conversion lift from A/B tests on Nordstrom.com</p>
+      <p><b>Accenture</b>onboarded every new employee on Microsoft Mesh</p>
     </div>
-    <div class="shipped"><span>Products I've shipped</span><p>Microsoft Teams · Microsoft Mesh · PowerPoint · Office 3D · Microsoft Account · Nordstrom.com</p></div>
+    <p class="shipped"><b>Products I've shipped:</b> Microsoft Teams, Microsoft Mesh, PowerPoint, Office 3D, Microsoft Account, Nordstrom.com</p>
   </div>
 </header>
 
 <main>
-  <section id="climb">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Where products get stuck</p>
-        <h2>You built the demo. Now people need to actually use it. That's where I come in.</h2>
-      </div>
-      <figure class="profile-wrap" style="margin:0">
-        <svg class="profile" viewBox="0 0 960 300" role="img" aria-label="A gap between two cliffs. On the left, a pilot that works in a demo. On the right, real adoption, used every day. The gap between them is where most products stall. Michelle builds the bridge across it, made of four planks: the right problem, trusted design, aligned teams, and rollout and training.">
-          <path class="cliff" d="M0 300 L0 170 L70 160 L150 168 L240 156 L330 160 L352 300 Z"/>
-          <path class="cliff" d="M608 300 L630 160 L720 154 L810 166 L890 152 L960 160 L960 300 Z"/>
-          <line class="tower" x1="340" y1="160" x2="340" y2="92"/>
-          <line class="tower" x1="620" y1="160" x2="620" y2="92"/>
-          <path class="cable" d="M340 92 Q480 178 620 92"/>
-          <g class="hanger"><line x1="400" y1="121" x2="400" y2="160"/><line x1="480" y1="135" x2="480" y2="160"/><line x1="560" y1="121" x2="560" y2="160"/></g>
-          <g class="plank">
-            <rect x="342" y="158" width="66" height="12" rx="3"/>
-            <rect x="412" y="158" width="66" height="12" rx="3"/>
-            <rect x="482" y="158" width="66" height="12" rx="3"/>
-            <rect x="552" y="158" width="66" height="12" rx="3"/>
-          </g>
-          <text class="plank-label" x="375" y="198" text-anchor="middle">Right</text><text class="plank-label" x="375" y="216" text-anchor="middle">problem</text>
-          <text class="plank-label" x="445" y="198" text-anchor="middle">Trusted</text><text class="plank-label" x="445" y="216" text-anchor="middle">design</text>
-          <text class="plank-label" x="515" y="198" text-anchor="middle">Aligned</text><text class="plank-label" x="515" y="216" text-anchor="middle">teams</text>
-          <text class="plank-label" x="585" y="198" text-anchor="middle">Rollout +</text><text class="plank-label" x="585" y="216" text-anchor="middle">training</text>
-          <text class="stage" x="40" y="118">Pilot</text>
-          <text x="40" y="140">WORKS IN A DEMO</text>
-          <text class="stage" x="900" y="118" text-anchor="end">Real adoption</text>
-          <text x="900" y="140" text-anchor="end">USED EVERY DAY</text>
-          <line class="flag-pole" x1="930" y1="154" x2="930" y2="104"/>
-          <path class="flag" d="M930 104 L958 112 L930 120 Z"/>
-          <text class="note note-accent" x="480" y="40" text-anchor="middle">The adoption gap</text>
-          <text x="480" y="62" text-anchor="middle">WHERE MOST PRODUCTS STALL</text>
-          <path class="callout" d="M480 72 L480 128"/>
-        </svg>
-      </figure>
-      <p class="caption">Demos are fast now. Getting people to rely on one takes the right problem, a design they trust, teams that agree, and a real rollout. That's the bridge I help you build.</p>
-      <div class="lifecycle-wrap">
-        <p class="eyebrow">Product development, end to end</p>
-        <div class="lifecycle"><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></div><span>Discover</span></div><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></div><span>Define</span></div><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16Z"/><path d="M14 7l3 3"/></svg></div><span>Design</span></div><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 6l-3 12"/></svg></div><span>Build</span></div><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg></div><span>Launch</span></div><div class="lc-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-4M12 16V8M17 16v-6"/></svg></div><span>Measure</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="work" class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">My work</p>
-        <h2>A few things I've shipped</h2>
-      </div>
-      <div class="cards">
-        <article class="card">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 320 140">
-              <rect x="20" y="20" width="280" height="80" rx="14" fill="#1d3447" stroke="#3c4f5e"/>
-              <g fill="#3c4f5e"><circle cx="58" cy="60" r="14"/><circle cx="98" cy="60" r="14"/><circle cx="138" cy="60" r="14"/><circle cx="222" cy="60" r="14"/><circle cx="262" cy="60" r="14"/></g>
-              <circle cx="180" cy="60" r="18" fill="#f2c48d"/>
-              <path d="M180 49 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3Z" fill="#14212d"/>
-              <path d="M180 92 v22" stroke="#f2c48d" stroke-width="2" stroke-dasharray="3 3"/>
-              <text x="180" y="130" text-anchor="middle" fill="#c3d0d8" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1">AI, ONE CLICK AWAY</text>
-            </svg>
-          </div>
-          <div class="body">
-            <span class="where">Microsoft Teams</span>
-            <p class="result">Millions of people</p>
-            <h3>Copilot and AI agents, in reach in every meeting</h3>
-            <details><summary>How it happened</summary><p>Copilot and AI agents were already in Teams, but people had to hunt for them. So I redesigned the meeting controls at the center of every meeting to put Copilot, Facilitator, Interpreter and AI notes one click away. People used AI more, ran into less friction, and told us they liked it.</p></details>
-          </div>
-        </article>
-        <article class="card">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 320 140">
-              <path d="M88 52 h144 a22 22 0 0 1 22 22 v10 a22 22 0 0 1 -22 22 h-34 l-14 -16 h-52 l-14 16 h-30 a22 22 0 0 1 -22 -22 v-10 a22 22 0 0 1 22 -22Z" fill="#1d3447" stroke="#f2c48d" stroke-width="3"/>
-              <path d="M88 52 c10 -22 134 -22 144 0" fill="none" stroke="#3c4f5e" stroke-width="6"/>
-              <g fill="#3c4f5e"><rect x="96" y="66" width="48" height="24" rx="10"/><rect x="176" y="66" width="48" height="24" rx="10"/></g>
-              <path d="M150 22 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3Z" fill="#f2c48d"/>
-            </svg>
-          </div>
-          <div class="body">
-            <span class="where">Microsoft Mesh</span>
-            <p class="result">Enterprise first</p>
-            <h3>Work accounts on VR headsets, adopted by Accenture</h3>
-            <details><summary>How it happened</summary><p>Companies wanted employees in immersive meetings, but headsets didn't work with their work accounts. I led the device strategy that let people sign in to Meta Quest with Microsoft 365 and use PowerPoint, Word and Loop in 3D. Accenture used it to onboard all of its new employees.</p></details>
-          </div>
-        </article>
-        <article class="card wide">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 320 140">
-              <g fill="#1d3447" stroke="#3c4f5e"><rect x="22" y="18" width="124" height="104" rx="8"/><rect x="174" y="18" width="124" height="104" rx="8"/></g>
-              <rect x="22" y="18" width="124" height="20" rx="8" fill="#3c4f5e"/>
-              <rect x="174" y="18" width="124" height="20" rx="8" fill="#f2c48d"/>
-              <g fill="#3c4f5e"><rect x="34" y="50" width="100" height="10" rx="3"/><rect x="34" y="68" width="70" height="10" rx="3"/><rect x="186" y="50" width="100" height="10" rx="3"/><rect x="186" y="68" width="70" height="10" rx="3"/></g>
-              <text x="84" y="108" text-anchor="middle" fill="#c3d0d8" font-family="IBM Plex Mono, monospace" font-size="13">A</text>
-              <text x="236" y="108" text-anchor="middle" fill="#f2c48d" font-family="IBM Plex Mono, monospace" font-size="13">B</text>
-              <path d="M262 100 l12 -14 12 14" fill="none" stroke="#f2c48d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="body">
-            <span class="where">Nordstrom.com</span>
-            <p class="result">$2M–$5M+ conversion lift</p>
-            <h3>Experimentation and growth on one of retail's busiest sites</h3>
-            <details><summary>How it happened</summary><p>On a site this busy, small changes add up fast. I ran A/B tests on the header and navigation that lifted conversion across the whole site, launched an Android banner that tripled app downloads, and led site updates for a record-breaking Anniversary Sale.</p></details>
-          </div>
-        </article>
-        <article class="card">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 320 140">
-              <g fill="#1d3447" stroke="#3c4f5e"><rect x="30" y="16" width="80" height="50" rx="8"/><rect x="30" y="74" width="80" height="50" rx="8"/><rect x="210" y="16" width="80" height="50" rx="8"/><rect x="210" y="74" width="80" height="50" rx="8"/></g>
-              <rect x="118" y="16" width="84" height="108" rx="10" fill="#1d3447" stroke="#f2c48d" stroke-width="3"/>
-              <circle cx="160" cy="58" r="13" fill="#c3d0d8"/>
-              <path d="M136 112 c4 -24 44 -24 48 0" fill="#c3d0d8"/>
-              <circle cx="136" cy="80" r="7" fill="#f2c48d"/><circle cx="184" cy="74" r="7" fill="#f2c48d"/>
-              <g fill="#3c4f5e"><circle cx="70" cy="38" r="8"/><circle cx="70" cy="96" r="8"/><circle cx="250" cy="38" r="8"/><circle cx="250" cy="96" r="8"/></g>
-            </svg>
-          </div>
-          <div class="body">
-            <span class="where">Microsoft Teams</span>
-            <p class="result">Industry first</p>
-            <h3>Sign language detection AI, shipped at scale</h3>
-            <details><summary>How it happened</summary><p>Meeting tools only noticed people who spoke out loud, so people who sign were easy to miss. As lead PM, I took sign language detection from idea to launch so signers get the spotlight too. It's now the foundation for crediting Deaf and hard-of-hearing participants correctly in captions, transcripts and AI summaries.</p></details>
-          </div>
-        </article>
-        <article class="card">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 320 140">
-              <g id="ppl">
-                <g fill="#3c4f5e">
-                  <circle cx="40" cy="40" r="9"/><circle cx="76" cy="40" r="9"/><circle cx="112" cy="40" r="9"/><circle cx="148" cy="40" r="9"/><circle cx="184" cy="40" r="9"/><circle cx="220" cy="40" r="9"/><circle cx="256" cy="40" r="9"/><circle cx="292" cy="40" r="9"/>
-                  <circle cx="40" cy="76" r="9"/><circle cx="76" cy="76" r="9"/><circle cx="148" cy="76" r="9"/><circle cx="220" cy="76" r="9"/><circle cx="292" cy="76" r="9"/>
-                  <circle cx="40" cy="112" r="9"/><circle cx="112" cy="112" r="9"/><circle cx="184" cy="112" r="9"/><circle cx="256" cy="112" r="9"/>
-                </g>
-                <g fill="#f2c48d">
-                  <circle cx="112" cy="76" r="9"/><circle cx="184" cy="76" r="9"/><circle cx="256" cy="76" r="9"/><circle cx="76" cy="112" r="9"/><circle cx="148" cy="112" r="9"/><circle cx="220" cy="112" r="9"/><circle cx="292" cy="112" r="9"/>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="body">
-            <span class="where">AI enablement</span>
-            <p class="result">~200 people trained</p>
-            <h3>From nervous to building their own AI workflows</h3>
-            <details><summary>How it happened</summary><p>When I started training colleagues on an AI agent pilot, I expected technical questions. What I got was nerves. So I skipped the architecture and showed one plain-English example: “Schedule a meeting with my manager at 10am tomorrow.” About 200 people later, teams were building their own workflows.</p></details>
-          </div>
-        </article>
-      </div>
-      <div class="quotes">
-        <figure class="quote">
-          <blockquote>&ldquo;Her defining trait is tenacity. She took on customer-focused problems with deep technical dependencies across multiple Microsoft organizations&hellip; Even at the hardest moments she always had a next step.&rdquo;</blockquote>
-          <figcaption><b>Brandon Bray</b>, Director of Product Management, Microsoft &middot; managed Michelle on Mesh</figcaption>
-        </figure>
-        <figure class="quote">
-          <blockquote>&ldquo;A PM you want on your team, always positive, driving things forward, opinionated and fair. A great professional and a great human.&rdquo;</blockquote>
-          <figcaption><b>Alexandre Godin</b>, Principal PM, Microsoft Copilot and AI agents in Teams</figcaption>
-        </figure>
-      </div>
-      <a class="built" href="built-with-ai.html">
-        <span class="eyebrow">Built with AI</span>
-        <span class="built-text"><b>I build things too.</b> See what I've made with AI.</span>
-        <span class="built-go" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
-
-  <section id="engagements" class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Working together</p>
-        <h2>Pick how you want to work together</h2>
-      </div>
-      <div class="paths">
-        <article class="path">
-          <div class="path-top">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 20 12 5l9.5 15Z"/><path d="M12 5v15M9 20l3-5 3 5"/><path d="M12 5V2.5l3 1-3 1"/></svg></div>
-            <span class="trail-tag">Expedition partner</span>
-          </div>
-          <h3>Fractional product leader</h3>
-          <span class="badge">Ongoing · 2–3 days a week</span>
-          <div class="best"><span>This is for you if</span><p>“We need a product leader now, but we can’t hire one yet.”</p></div>
-          <div class="get"><span>You'll leave with</span><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A roadmap and decisions owned</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Design, engineering and execs aligned</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>AI shipped and actually used</span></li></ul></div>
-        </article>
-        <article class="path">
-          <div class="path-top">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3.5"/><path d="M12 2.5v1.5M4.5 10H3M21 10h-1.5M6.7 4.7l1 1M17.3 4.7l-1 1"/><path d="M3 20l5-5 3 3 4-5 6 7Z"/></svg></div>
-            <span class="trail-tag">Day hike</span>
-          </div>
-          <h3>Product strategy sprint</h3>
-          <span class="badge">4–6 weeks</span>
-          <div class="best"><span>This is for you if</span><p>“We have more ideas than time, and need to pick the one worth building.”</p></div>
-          <div class="get"><span>You'll leave with</span><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Prioritized opportunities, AI included</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A roadmap and business case</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A working prototype of the top bet</span></li></ul></div>
-        </article>
-        <article class="path">
-          <div class="path-top">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="15" rx="3"/><path d="M9 6V4.5a3 3 0 0 1 6 0V6"/><path d="M6 12h12"/><rect x="10" y="12" width="4" height="3" rx="1"/></svg></div>
-            <span class="trail-tag">Guided trek</span>
-          </div>
-          <h3>AI enablement program</h3>
-          <span class="badge">6–12 weeks</span>
-          <div class="best"><span>This is for you if</span><p>“We rolled out AI tools, but our team isn’t really using them.”</p></div>
-          <div class="get"><span>You'll leave with</span><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A pilot and rollout plan</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Hands-on training and champions</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>IT, security and compliance on board</span></li></ul></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Questions I hear a lot</p>
-        <h2>Good questions</h2>
-      </div>
-      <div class="faq">
-        <details><summary>Do you only work on AI?</summary><p>No. I'm a product leader first, and AI is one tool in the toolbox. I've shipped collaboration tools, productivity apps, VR and enterprise devices, sign-in systems and eCommerce. I bring AI in where it makes the product better, and I partner with engineering and data science teams on the model work itself.</p></details>
-        <details><summary>Can we start small?</summary><p>Yes. Most people start with a 4–6 week strategy sprint. If it's useful, we keep going. If not, you still leave with a roadmap and a working prototype.</p></details>
-        <details><summary>How soon can you start?</summary><p>Email me at <a href="mailto:mmaislen@gmail.com">mmaislen@gmail.com</a> or message me on LinkedIn, and I'll tell you where my calendar stands.</p></details>
-        <details><summary>Do you work remotely?</summary><p>Yes. I'm based in North Bend, Washington, near Seattle, and I work with teams anywhere. I'm happy to come on site for kickoffs in the Seattle area.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section id="about" style="padding-top:12px">
-    <div class="wrap">
-      <div class="about">
-        <p class="eyebrow">About</p>
-        <h2>Hi, I'm Michelle.</h2>
-        <p>I'm a product leader in North Bend, Washington, just outside Seattle. I've spent my career shipping products at Microsoft and Nordstrom, and people come to me for the connective tissue: the right bets, simple experiences, teams that agree, and stories leadership says yes to. I've also mentored early-career PMs and led culture efforts across my organization, and I love helping people sharpen their judgment.</p>
-        <p>When I'm not shipping products, you'll usually find me on a trail up Mount Si.</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<section class="cta" id="contact">
-  <canvas id="ridges-cta" aria-hidden="true"></canvas>
-  <div class="wrap cta-inner">
-    <p class="eyebrow" style="color:var(--glow)">Let's talk</p>
-    <h2>Tell me what you're working on.</h2>
-    <p>I'm always happy to talk through an AI idea, even if we never end up working together.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:12px"><a class="btn btn-primary" href="mailto:mmaislen@gmail.com?subject=Let%27s%20talk">Email me</a><a class="btn btn-ghost" href="https://www.linkedin.com/in/maislen/" target="_blank" rel="noopener">Message me on LinkedIn</a></div>
-    <p style="font-size:16px">Or write to me directly at <a href="mailto:mmaislen@gmail.com" style="color:var(--glow)">mmaislen@gmail.com</a></p>
+<section id="climb">
+  <div class="wrap">
+    <h2>You built the demo. Now people need to actually use it. That's where I come in.</h2>
+    <figure style="margin:0">
+      <svg class="profile" viewBox="0 0 960 300" role="img" aria-label="A gap between two cliffs. On the left, a pilot that works in a demo. On the right, real adoption, used every day. The gap between them is where most products stall. Michelle builds the bridge across it, made of four planks: the right problem, trusted design, aligned teams, and rollout and training.">
+        <g class="contours">
+          <path d="M0 196 L70 186 L150 194 L240 182 L330 186 L346 196"/>
+          <path d="M0 226 L70 216 L150 224 L240 212 L330 216 L348 226"/>
+          <path d="M0 256 L70 246 L150 254 L240 242 L330 246 L350 256"/>
+          <path d="M612 196 L720 180 L810 192 L890 178 L960 186"/>
+          <path d="M610 226 L720 210 L810 222 L890 208 L960 216"/>
+          <path d="M609 256 L720 240 L810 252 L890 238 L960 246"/>
+        </g>
+        <path class="cliff" d="M0 300 L0 170 L70 160 L150 168 L240 156 L330 160 L352 300 Z" opacity=".95"/>
+        <path class="cliff" d="M608 300 L630 160 L720 154 L810 166 L890 152 L960 160 L960 300 Z" opacity=".95"/>
+        <line class="tower" x1="340" y1="160" x2="340" y2="92"/>
+        <line class="tower" x1="620" y1="160" x2="620" y2="92"/>
+        <path class="cable" d="M340 92 Q480 178 620 92"/>
+        <g class="hanger"><line x1="400" y1="121" x2="400" y2="160"/><line x1="480" y1="135" x2="480" y2="160"/><line x1="560" y1="121" x2="560" y2="160"/></g>
+        <g class="plank">
+          <rect x="342" y="158" width="66" height="12" rx="2"/>
+          <rect x="412" y="158" width="66" height="12" rx="2"/>
+          <rect x="482" y="158" width="66" height="12" rx="2"/>
+          <rect x="552" y="158" width="66" height="12" rx="2"/>
+        </g>
+        <text class="plank-label" x="375" y="198" text-anchor="middle">Right</text><text class="plank-label" x="375" y="216" text-anchor="middle">problem</text>
+        <text class="plank-label" x="445" y="198" text-anchor="middle">Trusted</text><text class="plank-label" x="445" y="216" text-anchor="middle">design</text>
+        <text class="plank-label" x="515" y="198" text-anchor="middle">Aligned</text><text class="plank-label" x="515" y="216" text-anchor="middle">teams</text>
+        <text class="plank-label" x="585" y="198" text-anchor="middle">Rollout +</text><text class="plank-label" x="585" y="216" text-anchor="middle">training</text>
+        <text class="stage" x="20" y="118">Pilot</text>
+        <text x="20" y="140">Works in a demo</text>
+        <text class="stage" x="900" y="118" text-anchor="end">Real adoption</text>
+        <text x="900" y="140" text-anchor="end">Used every day</text>
+        <line class="flag-pole" x1="930" y1="154" x2="930" y2="104"/>
+        <path class="flag" d="M930 104 L958 112 L930 120 Z"/>
+        <text class="gap" x="480" y="40" text-anchor="middle">The adoption gap</text>
+        <text x="480" y="62" text-anchor="middle">Where most products stall</text>
+        <path class="callout" d="M480 72 L480 128"/>
+      </svg>
+    </figure>
+    <p class="caption">Demos are fast now. Getting people to rely on one takes the right problem, a design they trust, teams that agree, and a real rollout. That's the bridge I help you build.</p>
+    <ol class="lifecycle" aria-label="Product development, end to end">
+      <li>Discover</li><li>Define</li><li>Design</li><li>Build</li><li>Launch</li><li>Measure</li>
+    </ol>
+    <p class="lifecycle-note">Product development, end to end.</p>
   </div>
 </section>
 
+<section id="work">
+  <div class="wrap">
+    <h2>A few things I've shipped</h2>
+    <div class="log">
+      <article class="entry">
+        <div><p class="where">Microsoft Teams</p><p class="result">Millions of people</p></div>
+        <div>
+          <h3>Copilot and AI agents, in reach in every meeting</h3>
+          <details><summary>How it happened</summary><p>Copilot and AI agents were already in Teams, but people had to hunt for them. So I redesigned the meeting controls at the center of every meeting to put Copilot, Facilitator, Interpreter and AI notes one click away. People used AI more, ran into less friction, and told us they liked it.</p></details>
+        </div>
+      </article>
+      <article class="entry">
+        <div><p class="where">Microsoft Mesh</p><p class="result">Enterprise first</p></div>
+        <div>
+          <h3>Work accounts on VR headsets, adopted by Accenture</h3>
+          <details><summary>How it happened</summary><p>Companies wanted employees in immersive meetings, but headsets didn't work with their work accounts. I led the device strategy that let people sign in to Meta Quest with Microsoft 365 and use PowerPoint, Word and Loop in 3D. Accenture used it to onboard all of its new employees.</p></details>
+        </div>
+      </article>
+      <article class="entry">
+        <div><p class="where">Nordstrom.com</p><p class="result">$2M–$5M+ conversion lift</p></div>
+        <div>
+          <h3>Experimentation and growth on one of retail's busiest sites</h3>
+          <details><summary>How it happened</summary><p>On a site this busy, small changes add up fast. I ran A/B tests on the header and navigation that lifted conversion across the whole site, launched an Android banner that tripled app downloads, and led site updates for a record-breaking Anniversary Sale.</p></details>
+        </div>
+      </article>
+      <article class="entry">
+        <div><p class="where">Microsoft Teams</p><p class="result">Industry first</p></div>
+        <div>
+          <h3>Sign language detection AI, shipped at scale</h3>
+          <details><summary>How it happened</summary><p>Meeting tools only noticed people who spoke out loud, so people who sign were easy to miss. As lead PM, I took sign language detection from idea to launch so signers get the spotlight too. It's now the foundation for crediting Deaf and hard-of-hearing participants correctly in captions, transcripts and AI summaries.</p></details>
+        </div>
+      </article>
+      <article class="entry">
+        <div><p class="where">AI enablement</p><p class="result">~200 people trained</p></div>
+        <div>
+          <h3>From nervous to building their own AI workflows</h3>
+          <details><summary>How it happened</summary><p>When I started training colleagues on an AI agent pilot, I expected technical questions. What I got was nerves. So I skipped the architecture and showed one plain-English example: “Schedule a meeting with my manager at 10am tomorrow.” About 200 people later, teams were building their own workflows.</p></details>
+        </div>
+      </article>
+    </div>
+    <div class="quotes">
+      <figure class="quote">
+        <blockquote>&ldquo;Her defining trait is tenacity. She took on customer-focused problems with deep technical dependencies across multiple Microsoft organizations&hellip; Even at the hardest moments she always had a next step.&rdquo;</blockquote>
+        <figcaption><b>Brandon Bray</b>, Director of Product Management, Microsoft. Managed Michelle on Mesh.</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>&ldquo;A PM you want on your team, always positive, driving things forward, opinionated and fair. A great professional and a great human.&rdquo;</blockquote>
+        <figcaption><b>Alexandre Godin</b>, Principal PM, Microsoft Copilot and AI agents in Teams</figcaption>
+      </figure>
+    </div>
+    <p class="built"><b>I build things too.</b> <a href="built-with-ai.html">See what I've made with AI</a></p>
+  </div>
+</section>
+
+<section id="engagements">
+  <div class="wrap">
+    <h2>Pick how you want to work together</h2>
+    <div class="paths">
+      <article class="path">
+        <p class="tag">Expedition partner</p>
+        <h3>Fractional product leader</h3>
+        <p class="badge">Ongoing, 2–3 days a week</p>
+        <p class="best">“We need a product leader now, but we can’t hire one yet.”</p>
+        <p class="get-h">You'll leave with</p>
+        <ul><li>A roadmap and decisions owned</li><li>Design, engineering and execs aligned</li><li>AI shipped and actually used</li></ul>
+      </article>
+      <article class="path">
+        <p class="tag">Day hike</p>
+        <h3>Product strategy sprint</h3>
+        <p class="badge">4–6 weeks</p>
+        <p class="best">“We have more ideas than time, and need to pick the one worth building.”</p>
+        <p class="get-h">You'll leave with</p>
+        <ul><li>Prioritized opportunities, AI included</li><li>A roadmap and business case</li><li>A working prototype of the top bet</li></ul>
+      </article>
+      <article class="path">
+        <p class="tag">Guided trek</p>
+        <h3>AI enablement program</h3>
+        <p class="badge">6–12 weeks</p>
+        <p class="best">“We rolled out AI tools, but our team isn’t really using them.”</p>
+        <p class="get-h">You'll leave with</p>
+        <ul><li>A pilot and rollout plan</li><li>Hands-on training and champions</li><li>IT, security and compliance on board</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap faq-about">
+    <div class="faq">
+      <h2>Good questions</h2>
+      <details><summary>Do you only work on AI?</summary><p>No. I'm a product leader first, and AI is one tool in the toolbox. I've shipped collaboration tools, productivity apps, VR and enterprise devices, sign-in systems and eCommerce. I bring AI in where it makes the product better, and I partner with engineering and data science teams on the model work itself.</p></details>
+      <details><summary>Can we start small?</summary><p>Yes. Most people start with a 4–6 week strategy sprint. If it's useful, we keep going. If not, you still leave with a roadmap and a working prototype.</p></details>
+      <details><summary>How soon can you start?</summary><p>Email me at <a href="mailto:mmaislen@gmail.com">mmaislen@gmail.com</a> or message me on LinkedIn, and I'll tell you where my calendar stands.</p></details>
+      <details><summary>Do you work remotely?</summary><p>Yes. I'm based in North Bend, Washington, near Seattle, and I work with teams anywhere. I'm happy to come on site for kickoffs in the Seattle area.</p></details>
+    </div>
+    <div class="about" id="about">
+      <img src="headshot.jpg" alt="" width="640" height="800">
+      <h2 style="margin-bottom:16px">Hi, I'm Michelle.</h2>
+      <p>I'm a product leader in North Bend, Washington, just outside Seattle. I've spent my career shipping products at Microsoft and Nordstrom, and people come to me for the connective tissue: the right bets, simple experiences, teams that agree, and stories leadership says yes to. I've also mentored early-career PMs and led culture efforts across my organization, and I love helping people sharpen their judgment.</p>
+      <p>When I'm not shipping products, you'll usually find me on a trail up Mount Si.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="cta" id="contact">
+  <canvas id="terrain-cta" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <h2>Tell me what you're working on.</h2>
+    <p>I'm always happy to talk through an AI idea, even if we never end up working together.</p>
+    <div class="actions"><a class="btn btn-primary" href="mailto:mmaislen@gmail.com?subject=Let%27s%20talk">Email me</a><a class="btn btn-ghost" href="https://www.linkedin.com/in/maislen/" target="_blank" rel="noopener">Message me on LinkedIn</a></div>
+    <p style="font-size:16px">Or write to me directly at <a href="mailto:mmaislen@gmail.com">mmaislen@gmail.com</a></p>
+  </div>
+</section>
 <footer>
   <div class="wrap">
-    <span>© 2026 333 Consulting · Michelle Maislen</span>
-    <span>North Bend, Washington · Working with teams everywhere</span>
+    <span>© 2026 333 Consulting, Michelle Maislen</span>
+    <span>North Bend, Washington. Working with teams everywhere.</span>
   </div>
 </footer>
 
 <script>
-  function drawRidges(id, seed, horizon) {
-    const c = document.getElementById(id);
-    if (!c) return;
-    const ctx = c.getContext('2d');
-    const draw = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const w = c.clientWidth, h = c.clientHeight;
-      if (!w || !h) return;
-      c.width = w * dpr; c.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      let s = seed; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-      const sky = ctx.createLinearGradient(0, 0, 0, h);
-      sky.addColorStop(0, '#0d1a28'); sky.addColorStop(0.6, '#1d3447'); sky.addColorStop(0.9, '#4a5a66'); sky.addColorStop(1, '#8a7a6a');
-      ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
-      const glow = ctx.createRadialGradient(w * 0.82, h * horizon, 0, w * 0.82, h * horizon, w * 0.45);
-      glow.addColorStop(0, 'rgba(242,184,128,0.4)'); glow.addColorStop(1, 'rgba(242,184,128,0)');
-      ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
-      const layers = [
-        { base: 0.74, jag: 0.06, step: 26, color: '#3c4f5e', peaks: [[0.62, 0.48], [0.84, 0.52], [0.97, 0.5]] },
-        { base: 0.81, jag: 0.045, step: 20, color: '#2c3d4c', peaks: [[0.55, 0.62], [0.76, 0.63], [0.92, 0.6]] },
-        { base: 0.89, jag: 0.03, step: 15, color: '#1e2e3c', peaks: [[0.40, 0.74], [0.70, 0.76], [0.88, 0.73]] },
-        { base: 0.96, jag: 0.02, step: 11, color: '#142230', peaks: [[0.25, 0.87], [0.6, 0.88]] }
-      ];
-      layers.forEach((L, i) => {
-        ctx.beginPath(); ctx.moveTo(0, h);
-        for (let x = 0; x <= w + L.step; x += L.step) {
-          let y = L.base - rnd() * L.jag;
-          for (const [px, py] of L.peaks) {
-            const d = Math.abs(x / w - px), span = 0.18 - i * 0.02;
-            if (d < span) y = Math.min(y, py + (L.base - py) * (d / span) + (rnd() - 0.5) * L.jag);
-          }
-          ctx.lineTo(x, y * h);
-        }
-        ctx.lineTo(w, h); ctx.closePath(); ctx.fillStyle = L.color; ctx.fill();
-      });
-      const haze = ctx.createLinearGradient(0, 0, w, 0);
-      haze.addColorStop(0, 'rgba(15,29,43,0.78)'); haze.addColorStop(0.55, 'rgba(15,29,43,0.4)'); haze.addColorStop(1, 'rgba(15,29,43,0.05)');
-      ctx.fillStyle = haze; ctx.fillRect(0, 0, w, h);
-      const floor = ctx.createLinearGradient(0, h * 0.7, 0, h);
-      floor.addColorStop(0, 'rgba(15,29,43,0)'); floor.addColorStop(1, 'rgba(15,29,43,0.85)');
-      ctx.fillStyle = floor; ctx.fillRect(0, 0, w, h);
-    };
-    draw();
-    let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 120); });
+/* A stylized Mount Si: a heightfield, cut into contour lines with marching squares, then drawn in 3D.
+   Each contour sits at its own elevation, so turning the model shows the shape the way a 3D package would. */
+(function () {
+  const N = 72, LEVELS = 26;
+  const g = (x, y, cx, cy, sx, sy, a) => a * Math.exp(-(((x - cx) ** 2) / (2 * sx * sx) + ((y - cy) ** 2) / (2 * sy * sy)));
+  function height(x, y) {
+    let h = g(x, y, 0.08, -0.02, 0.42, 0.2, 1.0)      // main summit
+          + g(x, y, -0.42, 0.08, 0.3, 0.24, 0.62)     // western shoulder
+          + g(x, y, 0.42, 0.22, 0.22, 0.3, 0.42)       // eastern ridge
+          + g(x, y, -0.1, 0.5, 0.5, 0.18, 0.22);       // lower foothills
+    h += g(x, y, 0.5, -0.25, 0.12, 0.1, 0.18) + g(x, y, -0.2, -0.35, 0.1, 0.16, -0.12);
+    h += 0.05 * Math.sin(x * 8.3 + y * 2.9) * Math.cos(y * 6.1 - x * 2.4) + 0.025 * Math.sin(x * 17 - y * 13);
+    const r = Math.sqrt(x * x + y * y);
+    h *= Math.max(0, 1 - Math.pow(r / 1.05, 4));
+    return Math.max(0, h);
   }
-  drawRidges('ridges-hero', 7, 0.72);
-  drawRidges('ridges-cta', 19, 0.80);
+  const H = [];
+  for (let j = 0; j <= N; j++) { H[j] = []; for (let i = 0; i <= N; i++) H[j][i] = height(-1 + 2 * i / N, -1 + 2 * j / N); }
+  let max = 0; H.forEach(r => r.forEach(v => { if (v > max) max = v; }));
+  const segs = [];
+  for (let k = 1; k <= LEVELS; k++) {
+    const t = (k / (LEVELS + 1)) * max;
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+      const a = H[j][i], b = H[j][i + 1], c = H[j + 1][i + 1], d = H[j + 1][i];
+      const pts = [];
+      const edge = (v1, v2, x1, y1, x2, y2) => { if ((v1 < t) !== (v2 < t)) { const f = (t - v1) / (v2 - v1); pts.push([x1 + (x2 - x1) * f, y1 + (y2 - y1) * f]); } };
+      edge(a, b, i, j, i + 1, j); edge(b, c, i + 1, j, i + 1, j + 1); edge(c, d, i + 1, j + 1, i, j + 1); edge(d, a, i, j + 1, i, j);
+      for (let p = 0; p + 1 < pts.length; p += 2) segs.push([pts[p][0] / N * 2 - 1, pts[p][1] / N * 2 - 1, pts[p + 1][0] / N * 2 - 1, pts[p + 1][1] / N * 2 - 1, k]);
+    }
+  }
+  // summit position
+  let sx = 0, sy = 0, sv = 0;
+  for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) if (H[j][i] > sv) { sv = H[j][i]; sx = -1 + 2 * i / N; sy = -1 + 2 * j / N; }
+
+  function model(canvas, opts) {
+    const ctx = canvas.getContext('2d');
+    let angle = opts.angle, w = 0, h = 0;
+    function size() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function draw() {
+      if (!w) return;
+      ctx.clearRect(0, 0, w, h);
+      const s = Math.min(w, h * 1.0) * 0.47, cx = w * 0.5, cy = h * 0.74, tilt = opts.tilt, zs = 1.35 / max;
+      const ca = Math.cos(angle), sa = Math.sin(angle), ct = Math.cos(tilt), st = Math.sin(tilt);
+      const P = (x, y, z) => { const rx = x * ca - y * sa, ry = x * sa + y * ca; return [cx + rx * s, cy + (ry * st - z * zs * ct) * s]; };
+      for (let k = 1; k <= LEVELS; k++) {
+        const z = (k / (LEVELS + 1)) * max, index = k % 5 === 0;
+        ctx.beginPath();
+        for (const sg of segs) if (sg[4] === k) { const p = P(sg[0], sg[1], z), q = P(sg[2], sg[3], z); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); }
+        ctx.strokeStyle = index ? opts.index : opts.line;
+        ctx.lineWidth = index ? 1.6 : 0.9;
+        ctx.globalAlpha = 0.45 + 0.55 * (k / LEVELS);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      const top = P(sx, sy, sv);
+      ctx.beginPath(); ctx.moveTo(top[0], top[1] - 4); ctx.lineTo(top[0], top[1] - 30); ctx.strokeStyle = opts.index; ctx.lineWidth = 1.6; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(top[0], top[1] - 30); ctx.lineTo(top[0] + 18, top[1] - 25); ctx.lineTo(top[0], top[1] - 20); ctx.closePath(); ctx.fillStyle = '#f2b01e'; ctx.fill();
+    }
+    size(); draw();
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { size(); draw(); }, 100); });
+    if (!opts.interactive) return;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let dragging = false, lastX = 0, visible = true, spin = still ? 0 : 0.0012, last = performance.now();
+    new IntersectionObserver(e => { visible = e[0].isIntersecting; }).observe(canvas);
+    canvas.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', e => { if (!dragging) return; angle += (e.clientX - lastX) * 0.008; lastX = e.clientX; draw(); });
+    const stop = () => { dragging = false; };
+    canvas.addEventListener('pointerup', stop); canvas.addEventListener('pointercancel', stop);
+    if (still) return;
+    (function loop(now) {
+      const dt = Math.min(now - last, 50); last = now;
+      if (visible && !dragging) { angle += spin * dt * 0.06; draw(); }
+      requestAnimationFrame(loop);
+    })(last);
+  }
+  model(document.getElementById('terrain-hero'), { angle: -0.35, tilt: 0.55, line: '#7f978b', index: '#183a31', interactive: true });
+  model(document.getElementById('terrain-cta'), { angle: 0.9, tilt: 0.55, line: '#4f7366', index: '#a9c0b5', interactive: false });
+})();
 </script>
 </body>
 </html>
