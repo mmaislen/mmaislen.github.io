@@ -107,12 +107,15 @@
   #cases { background: var(--paper); border-top: 1px solid var(--contour); border-bottom: 1px solid var(--contour); }
   #cases .log { margin-top: 8px; }
   .cases-intro { color: var(--moss); font-size: 18px; margin: -4px 0 28px; max-width: 40em; }
-  .case { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 14px 0 0; max-width: 46em; }
-  .case dt { font-weight: 650; color: var(--fir); font-stretch: 112%; font-size: 15px; padding-top: 2px; }
-  .case dd { margin: 0; }
+  #cases .entry .where { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; }
+  #cases .entry h3 { max-width: 26em; }
+  .case { margin: 18px 0 4px; padding-left: 20px; border-left: 2px solid var(--contour); max-width: 38em; display: grid; gap: 18px; }
+  .case div { display: grid; gap: 4px; }
+  .case dt { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700; color: var(--moss); }
+  .case dd { margin: 0; font-size: 17px; line-height: 1.6; }
   .cases-ask { margin-top: 28px; font-size: 18px; }
   .cases-ask a { color: var(--fir); font-weight: 650; }
-  @media (max-width: 640px) { .case { grid-template-columns: 1fr; gap: 2px; } .case dd { margin-bottom: 10px; } }
+  @media (max-width: 640px) { #cases .entry .result { font-size: 18px; margin-bottom: 4px; } .case { padding-left: 14px; } }
 
   .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
   .quote { margin: 0; padding-left: 22px; border-left: 3px solid var(--blaze); }
