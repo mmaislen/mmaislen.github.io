@@ -116,6 +116,7 @@
   .pain { font-size: 18px; line-height: 1.5; color: var(--ink); max-width: 38em; margin: 4px 0 8px; }
   .fix { font-size: 17px; line-height: 1.5; color: var(--moss); max-width: 38em; margin: 0 0 12px; }
   .fix b { color: var(--fir); font-weight: 700; }
+  .fix a { color: var(--fir); font-weight: 650; }
   .cta-line { margin-top: 10px; }
   .cta-line a { color: var(--fir); font-weight: 650; }
   .cases-ask { margin-top: 28px; font-size: 18px; }
