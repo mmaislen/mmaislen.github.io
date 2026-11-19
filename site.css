@@ -103,6 +103,16 @@
   .entry details[open] summary::before { content: "\2212"; }
   .entry details p { margin-top: 10px; max-width: 40em; }
 
+  /* Case studies: same field-log idiom as #work */
+  #cases .log { margin-top: 8px; }
+  .cases-intro { color: var(--moss); font-size: 18px; margin: -4px 0 28px; max-width: 40em; }
+  .case { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 14px 0 0; max-width: 46em; }
+  .case dt { font-weight: 650; color: var(--fir); font-stretch: 112%; font-size: 15px; padding-top: 2px; }
+  .case dd { margin: 0; }
+  .cases-ask { margin-top: 28px; font-size: 18px; }
+  .cases-ask a { color: var(--fir); font-weight: 650; }
+  @media (max-width: 640px) { .case { grid-template-columns: 1fr; gap: 2px; } .case dd { margin-bottom: 10px; } }
+
   .quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
   .quote { margin: 0; padding-left: 22px; border-left: 3px solid var(--blaze); }
   .quote blockquote { margin: 0 0 14px; font-size: 21px; line-height: 1.45; color: var(--fir); font-style: italic; font-weight: 450; }
