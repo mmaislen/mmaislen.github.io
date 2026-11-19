@@ -104,6 +104,7 @@
   .entry details p { margin-top: 10px; max-width: 40em; }
 
   /* Case studies: same field-log idiom as #work */
+  #cases { background: var(--paper); border-top: 1px solid var(--contour); border-bottom: 1px solid var(--contour); }
   #cases .log { margin-top: 8px; }
   .cases-intro { color: var(--moss); font-size: 18px; margin: -4px 0 28px; max-width: 40em; }
   .case { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 14px 0 0; max-width: 46em; }
