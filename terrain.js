@@ -44,7 +44,7 @@
     function draw() {
       if (!w) return;
       ctx.clearRect(0, 0, w, h);
-      const s = Math.min(w, h * 1.0) * 0.47, cx = w * 0.5, cy = h * 0.74, tilt = opts.tilt, zs = 1.35 / max;
+      const s = Math.min(w, h * 1.0) * 0.56, cx = w * 0.5, cy = h * (w > h * 1.4 ? 0.82 : 0.76), tilt = opts.tilt, zs = 1.35 / max;
       const ca = Math.cos(angle), sa = Math.sin(angle), ct = Math.cos(tilt), st = Math.sin(tilt);
       const P = (x, y, z) => { const rx = x * ca - y * sa, ry = x * sa + y * ca; return [cx + rx * s, cy + (ry * st - z * zs * ct) * s]; };
       for (let k = 1; k <= LEVELS; k++) {
