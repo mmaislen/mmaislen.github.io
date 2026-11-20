@@ -2,7 +2,7 @@
 
 Website for 333 Consulting, Michelle Maislen's fractional AI product leadership practice.
 
-Live at https://mmaislen.github.io (served by GitHub Pages). Custom domain 333consulting.com to be added later.
+Live at https://michellemaislen.com (GitHub Pages, custom domain set by the CNAME file; DNS at Porkbun).
 
 ## Publish
 1. Push these files to the `main` branch of this repo.
