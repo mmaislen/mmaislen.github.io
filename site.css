@@ -142,8 +142,18 @@
   .quote blockquote { margin: 0 0 14px; font-size: 21px; line-height: 1.45; color: var(--fir); font-style: italic; font-weight: 450; }
   .quote figcaption { font-size: 15px; color: var(--moss); }
   .quote figcaption b { color: var(--ink); }
-  .built { margin-top: 56px; font-size: 19px; }
-  .built a { font-weight: 650; }
+  /* Built with AI */
+  .built-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  #built h2 { margin-bottom: 16px; }
+  .built-lede { font-size: 19px; max-width: 30em; }
+  .built-list { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1.5px solid var(--fir); }
+  .built-list li { padding: 12px 0; border-bottom: 1px solid var(--contour); font-size: 17px; color: var(--moss); }
+  .built-list b { color: var(--fir); font-weight: 700; }
+  #built .actions { margin-top: 28px; }
+  .built-shot { display: block; background: #f6efe0; border: 1px solid var(--contour); border-radius: 4px; padding: 6px; box-shadow: 10px 10px 0 var(--fir); transition: transform .15s ease; }
+  .built-shot:hover { transform: translate(-2px, -2px); }
+  .built-shot svg { width: 100%; height: auto; }
+  @media (max-width: 900px) { .built-grid { grid-template-columns: 1fr; } .built-shot { order: -1; margin-right: 10px; } }
 
   /* Engagements */
   .paths { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--fir); }
