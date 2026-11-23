@@ -154,6 +154,16 @@
   .built-shot:hover { transform: translate(-2px, -2px); }
   .built-shot svg { width: 100%; height: auto; }
   @media (max-width: 900px) { .built-grid { grid-template-columns: 1fr; } .built-shot { order: -1; margin-right: 10px; } }
+  /* Dark band so the section stands apart from its pale neighbors */
+  #built { background: var(--fir); color: var(--fir-ink); }
+  #built h2, #built .built-lede, #built .built-list b { color: var(--fir-ink); }
+  #built .built-list { border-top-color: var(--fir-muted); }
+  #built .built-list li { color: var(--fir-muted); border-bottom-color: rgba(169,192,181,.3); }
+  #built .btn-primary { background: var(--blaze); color: var(--fir); border-color: var(--blaze); }
+  #built .btn-primary:hover { background: #ffc23d; }
+  #built .btn-ghost { color: var(--fir-ink); border-color: var(--fir-muted); }
+  #built .btn-ghost:hover { background: rgba(255,255,255,.08); }
+  #built .built-shot { border-color: var(--fir-muted); box-shadow: 10px 10px 0 var(--blaze); }
 
   /* Engagements */
   .paths { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--fir); }
