@@ -86,3 +86,37 @@
     weeks: [-1, 0, 1, 2],
   };
 })();
+
+// Sample team emails, and the to-dos an AI pulled out of them. In the real
+// app the parent forwards team emails to their own Sports Week address and
+// a language model does this step; the demo ships the results so it runs
+// without a server. Each to-do keeps the exact words it came from.
+(function () {
+  window.DEMO.emails = [
+    {
+      id: 'e-hawks-sat', kid: 'Ava', source: 'teamsnap', from: 'Coach Dana', week: 0, day: 0,
+      subject: 'Saturday game + snack duty',
+      body: 'Hi Hawks families! Great practice tonight.\n\nSaturday we play Lakeside FC at Pickering Farm, Field 4. Please have players there by 8:30. We are the home team, so wear white jerseys.\n\nSnack this week: Ava\'s family. Orange slices and water for 14, please!\n\nHeads up: team photos are next Wednesday. Arrive at 5:00 so we can shoot before practice.\n\nCoach Dana',
+    },
+    {
+      id: 'e-squirts-fee', kid: 'Leo', source: 'sportsengine', from: 'Manager Jordan', week: 0, day: 1,
+      subject: 'Kent game and tournament fee',
+      body: 'Squirts parents,\n\nSaturday vs Kent at Kent Valley Ice. Puck drop 9:30, locker room opens at 8:45. Dark jerseys.\n\nThe holiday tournament fee is $40 per player, due Friday in SportsEngine.\n\nThanks!\nJordan',
+    },
+    {
+      id: 'e-hawks-party', kid: 'Ava', source: 'teamsnap', from: 'Coach Dana', week: 0, day: 2,
+      subject: 'End of season party!',
+      body: 'Hawks families,\n\nWhat a season! Party is Sunday the 6th at 4:00 at my house. Bring a dish to share. If you would like to chip in for the coaches\' gift, bring $10 in an envelope.\n\nSee you there,\nCoach Dana',
+    },
+  ];
+
+  window.DEMO.todos = [
+    { id: 't-snack', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-0-game', text: 'Bring orange slices and water for 14', quote: 'Orange slices and water for 14' },
+    { id: 't-white', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-0-game', text: 'Wear white jersey', quote: 'wear white jerseys' },
+    { id: 't-photos', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-1-wed', text: 'Team photos: arrive at 5:00', quote: 'Arrive at 5:00 so we can shoot before practice' },
+    { id: 't-fee', email: 'e-squirts-fee', kid: 'Leo', due: { week: 0, day: 4 }, text: 'Pay $40 tournament fee', quote: '$40 per player, due Friday in SportsEngine', action: 'pay' },
+    { id: 't-dark', email: 'e-squirts-fee', kid: 'Leo', event: 'se-leo-0-game', text: 'Pack dark jersey', quote: 'Dark jerseys' },
+    { id: 't-dish', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: 'Bring a dish to share', quote: 'Bring a dish to share' },
+    { id: 't-gift', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: '$10 for the coaches\' gift', quote: 'bring $10 in an envelope' },
+  ];
+})();

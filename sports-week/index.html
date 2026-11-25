@@ -32,6 +32,8 @@
       <span id="rsvpCount"></span><b>Answer ›</b>
     </button>
 
+    <section class="todo" id="todo" aria-label="To do" hidden></section>
+
     <section id="days" aria-live="polite"></section>
 
     <footer class="foot">
@@ -47,11 +49,19 @@
       <li><b>Both schedules</b>The parent pastes each app's calendar link once. It's free, allowed, and updates on its own. This demo reads the same calendar format.</li>
       <li><b>TeamSnap RSVPs</b>The parent taps "Sign in with TeamSnap" (TeamSnap's official login). Their RSVPs show here, and a tap answers.</li>
       <li><b>SportsEngine RSVPs</b>SportsEngine has no sign-in for outside apps, so one tap opens that event in SportsEngine.</li>
+      <li class="ai"><b>To-dos from team emails</b>The parent has team emails forwarded to Sports Week. AI pulls out what to bring, wear, pay or sign, and links each item to the game. Tap one to see the email it came from.</li>
       <li class="warn"><b>Clash check</b>Flags times when two kids need to be in two places at once. It works from the merged schedule, so it needs no extra data.</li>
     </ol>
   </aside>
 </div>
 <div class="scrim" id="scrim" hidden></div>
+<div class="modal" id="mail" role="dialog" aria-modal="true" aria-labelledby="mailSubj" hidden>
+  <button type="button" class="close" id="mailClose" aria-label="Close">×</button>
+  <div class="mail-from" id="mailFrom"></div>
+  <h2 id="mailSubj"></h2>
+  <div class="mail-body" id="mailBody"></div>
+  <p class="mail-note">✨ AI turned the highlighted words into to-dos. The demo uses sample emails.</p>
+</div>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script src="ics.js"></script>

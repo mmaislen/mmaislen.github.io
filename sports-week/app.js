@@ -18,12 +18,36 @@
   }
   events.sort((a, b) => a.start - b.start);
 
+  // ---- To-dos the AI pulled from team emails ----
+  const emailsById = Object.fromEntries((DEMO.emails || []).map((m) => [m.id, m]));
+  function dayDate(w, d) {
+    const x = new Date(DEMO.weekStart);
+    x.setDate(x.getDate() + w * 7 + d);
+    return x;
+  }
+  const todos = (DEMO.todos || []).map((t) => {
+    const ev = t.event ? events.find((e) => e.uid === t.event) : null;
+    return {
+      ...t,
+      ev,
+      when: ev ? ev.start : dayDate(t.due.week, t.due.day),
+      kidObj: DEMO.kids.find((k) => k.name === t.kid),
+      mail: emailsById[t.email],
+    };
+  }).sort((a, b) => a.when - b.when);
+
   // ---- RSVP state (kept in this browser only) ----
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) { saved = {}; }
   const rsvp = (ev) => saved[ev.uid] || DEMO.answered[ev.uid] || null;
   function setRsvp(ev, value) {
     saved[ev.uid] = value;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) { /* demo only */ }
+  }
+
+  const isDone = (t) => !!saved['todo:' + t.id];
+  function setDone(t, value) {
+    if (value) saved['todo:' + t.id] = true; else delete saved['todo:' + t.id];
     try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) { /* demo only */ }
   }
 
@@ -87,9 +111,14 @@
       action = `<button type="button" class="out" data-uid="${esc(ev.uid)}">RSVP in SportsEngine ↗</button>`;
     }
     const arrive = ev.arrive ? ` · arrive ${fmtTime(ev.arrive)}` : '';
+    const evTodos = todos.filter((t) => t.ev === ev);
+    const todoLine = evTodos.length
+      ? `<div class="ev-todo">✨ ${evTodos.map((t) => `<span class="${isDone(t) ? 'struck' : ''}">${esc(t.text)}</span>`).join(' · ')}</div>`
+      : '';
     return `<article class="ev${past ? ' past' : ''}${!answer && src === 'teamsnap' && !past ? ' needs' : ''}" style="--kid:${ev.kid.color}" id="ev-${esc(ev.uid)}">
       <div class="row"><h3>${esc(ev.kid.name)} · ${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
       <div class="meta">${esc(ev.location || '')}${arrive}</div>
+      ${todoLine}
       ${action}
       <div class="src">${SOURCES[src].toUpperCase()}</div>
     </article>`;
@@ -117,6 +146,8 @@
     $('rsvpAlert').hidden = open.length === 0;
     $('rsvpCount').textContent = `${open.length} RSVP${open.length === 1 ? '' : 's'} need${open.length === 1 ? 's' : ''} you`;
 
+    renderTodos(start, end);
+
     // Clashes are always checked across all kids, even when one is filtered
     const clashList = clashes(inWeek.filter((e) => e.end >= now));
 
@@ -135,6 +166,56 @@
       days.push(`<div class="day"><h2>${label}${today}</h2>${warn}${dayEvents.map((e) => eventCard(e, now)).join('')}</div>`);
     }
     $('days').innerHTML = days.length ? days.join('') : '<p class="empty">Nothing scheduled this week.</p>';
+  }
+
+  function whenLabel(t) {
+    const day = t.when.toLocaleDateString('en-US', { weekday: 'short' });
+    if (!t.ev) return 'due ' + day;
+    const title = t.ev.title;
+    const kind = /^Game/.test(title) ? 'game' : /practice/i.test(title) ? 'practice' : title.toLowerCase();
+    return `${day} ${kind}`;
+  }
+
+  function renderTodos(start, end) {
+    const list = todos.filter((t) => t.when >= start && t.when < end && (filter === 'all' || t.kid === filter));
+    const box = $('todo');
+    box.hidden = list.length === 0;
+    if (!list.length) { box.innerHTML = ''; return; }
+    const open = list.filter((t) => !isDone(t)).length;
+    box.innerHTML = `<h2>To do${week === 0 ? ' this week' : ''}<span class="count">${open ? open + ' left' : 'All done'}</span></h2>` +
+      list.map((t) => {
+        const done = isDone(t);
+        const pay = t.action === 'pay' && !done ? '<button type="button" class="out pay">Pay in SportsEngine ↗</button>' : '';
+        return `<div class="td${done ? ' done' : ''}">
+          <button type="button" class="cb" data-todo="${esc(t.id)}" aria-pressed="${done}" aria-label="Mark done: ${esc(t.text)}">${done ? '✓' : ''}</button>
+          <div class="td-body">
+            <div class="td-text">${esc(t.text)}</div>
+            <div class="td-meta"><span class="dot" style="background:${t.kidObj.color}"></span>${esc(t.kid)} · ${whenLabel(t)} · <button type="button" class="from" data-todo="${esc(t.id)}">✨ ${esc(t.mail.from)}'s email</button></div>
+            ${pay}
+          </div>
+        </div>`;
+      }).join('');
+  }
+
+  // ---- Email source view ----
+  function openMail(t) {
+    const m = t.mail;
+    const sent = dayDate(m.week, m.day).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    $('mailFrom').textContent = `${m.from} · via ${SOURCES[m.source]} · ${sent}`;
+    $('mailSubj').textContent = m.subject;
+    let body = esc(m.body);
+    for (const other of todos.filter((x) => x.mail === m)) {
+      const q = esc(other.quote);
+      body = body.replace(q, `<mark class="${other === t ? 'this' : ''}">${q}</mark>`);
+    }
+    $('mailBody').innerHTML = body.replace(/\n/g, '<br>');
+    $('mail').hidden = false;
+    $('scrim').hidden = false;
+    $('mailClose').focus();
+  }
+  function closeMail() {
+    $('mail').hidden = true;
+    if (!document.body.classList.contains('how-open')) $('scrim').hidden = true;
   }
 
   // ---- Toast ----
@@ -183,10 +264,26 @@
     void first.offsetWidth;
     first.classList.add('flash');
   });
+  $('todo').addEventListener('click', (e) => {
+    const cb = e.target.closest('.cb');
+    if (cb) {
+      const t = todos.find((x) => x.id === cb.dataset.todo);
+      setDone(t, !isDone(t));
+      render();
+      return;
+    }
+    const from = e.target.closest('.from');
+    if (from) {
+      openMail(todos.find((x) => x.id === from.dataset.todo));
+      return;
+    }
+    if (e.target.closest('.pay')) toast('The real app opens this payment in SportsEngine.');
+  });
   $('howBtn').addEventListener('click', () => openHow(true));
   $('howClose').addEventListener('click', () => openHow(false));
-  $('scrim').addEventListener('click', () => openHow(false));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') openHow(false); });
+  $('mailClose').addEventListener('click', closeMail);
+  $('scrim').addEventListener('click', () => { closeMail(); openHow(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMail(); openHow(false); } });
 
   render();
 })();

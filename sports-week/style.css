@@ -74,6 +74,32 @@ h1 { font-size: 26px; font-weight: 750; }
 .foot { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; }
 .foot a { color: inherit; }
 
+/* To-dos from team emails */
+.todo { margin-top: 12px; border: 1.5px solid #e4dcf7; background: #faf8ff; border-radius: 14px; padding: 10px 12px 4px; }
+.todo h2 { font-size: 14px; font-weight: 700; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.todo .count { font-size: 12px; font-weight: 600; color: var(--muted); }
+.td { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid #ece6fa; }
+.td:first-of-type { border-top: 0; }
+.cb { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid #b9adda; background: #fff; flex: none; margin-top: 1px; font-size: 13px; font-weight: 800; color: #fff; line-height: 1; }
+.td.done .cb { background: var(--go); border-color: var(--go); }
+.td-text { font-size: 14px; font-weight: 600; }
+.td.done .td-text { text-decoration: line-through; color: var(--muted); }
+.td-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.td-meta .dot { width: 7px; height: 7px; margin-right: 4px; vertical-align: 1px; }
+.from { color: #6a4fc4; font-size: 12px; font-weight: 600; padding: 0; }
+.pay { margin-top: 4px; }
+.ev-todo { font-size: 12.5px; color: #6a4fc4; font-weight: 600; margin-top: 5px; }
+.ev-todo .struck { text-decoration: line-through; color: var(--muted); font-weight: 500; }
+
+/* Email source view */
+.modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(440px, calc(100vw - 32px)); max-height: 85vh; overflow-y: auto; background: var(--card); border-radius: 18px; padding: 22px 20px 18px; z-index: 25; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+.mail-from { font-size: 12px; color: var(--muted); font-weight: 600; padding-right: 30px; }
+.modal h2 { font-size: 18px; font-weight: 750; margin: 4px 0 12px; }
+.mail-body { font-size: 14px; line-height: 1.5; color: #3c4652; background: #f7f8fa; border-radius: 12px; padding: 12px 14px; }
+.mail-body mark { background: #ece6fa; color: inherit; border-radius: 4px; padding: 0 2px; }
+.mail-body mark.this { background: #d6c9f7; box-shadow: 0 0 0 2px #b9a3f0; }
+.mail-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
 /* How it works: bottom sheet on phones, side panel on wide screens */
 .how { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-radius: 20px 20px 0 0; padding: 22px 20px 28px; box-shadow: 0 -10px 30px rgba(0,0,0,.15); transform: translateY(105%); visibility: hidden; transition: transform .25s ease, visibility .25s; z-index: 20; max-height: 85vh; overflow-y: auto; }
 body.how-open .how { transform: none; visibility: visible; }
@@ -85,6 +111,7 @@ body.how-open .how { transform: none; visibility: visible; }
 .how li { counter-increment: n; position: relative; padding-left: 38px; font-size: 14px; color: #4a5562; }
 .how li::before { content: counter(n); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .how li.warn::before { content: "!"; }
+.how li.ai::before { background: #6a4fc4; }
 .how li b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 2px; }
 
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; font-size: 14px; padding: 10px 16px; border-radius: 12px; width: max-content; max-width: calc(100vw - 32px); z-index: 30; box-shadow: 0 6px 20px rgba(0,0,0,.2); }
@@ -94,7 +121,7 @@ body.how-open .how { transform: none; visibility: visible; }
   .layout { display: flex; justify-content: center; align-items: flex-start; gap: 48px; padding: 40px 32px; }
   .app { margin: 0; width: 420px; flex: none; background: var(--card); border-radius: 28px; padding: 20px 20px 28px; box-shadow: 0 20px 50px rgba(0,0,0,.10); }
   .how { position: sticky; top: 40px; transform: none; border-radius: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.06); width: 440px; max-height: none; transition: none; visibility: visible; }
-  .close, #howBtn, .scrim { display: none !important; }
+  .how .close, #howBtn { display: none !important; }
   .how li { font-size: 15px; }
 }
 @media (prefers-reduced-motion: reduce) {
