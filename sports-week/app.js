@@ -1,5 +1,6 @@
 (function () {
-  const SOURCES = { teamsnap: 'TeamSnap', sportsengine: 'SportsEngine' };
+  const SOURCES = { teamsnap: 'TeamSnap', sportsengine: 'SportsEngine', gamechanger: 'GameChanger' };
+  const BADGES = { teamsnap: 'TS', sportsengine: 'SE', gamechanger: 'GC' };
   const STORE_KEY = 'sports-week-rsvps';
   const $ = (id) => document.getElementById(id);
 
@@ -116,11 +117,11 @@
           `<button type="button" class="b ${v}${answer === v ? ' on' : ''}" data-uid="${esc(ev.uid)}" data-v="${v}" aria-pressed="${answer === v}" aria-label="${labelFor(v)}" title="${labelFor(v)}">${ICONS[v]}</button>`
         ).join('') + '</div>';
     } else if (!past) {
-      action = `<button type="button" class="out" data-uid="${esc(ev.uid)}" title="Opens SportsEngine">RSVP ↗</button>`;
+      action = `<button type="button" class="out" data-uid="${esc(ev.uid)}" title="Opens ${SOURCES[src]}">RSVP ↗</button>`;
     }
     const arrive = ev.arrive ? ` · arrive ${shortTime(ev.arrive)}` : '';
     return `<article class="ev${past ? ' past' : ''}${!answer && src === 'teamsnap' && !past ? ' needs' : ''}" style="--kid:${ev.kid.color}" id="ev-${esc(ev.uid)}">
-      ${avatar(ev.kid, 'av')}
+      <span class="av-wrap">${avatar(ev.kid, 'av')}<span class="app-badge" title="From ${SOURCES[src]}" aria-label="From ${SOURCES[src]}">${BADGES[src]}</span></span>
       <div class="ev-main">
         <div class="row"><h3>${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
         <div class="row2"><span class="meta">${esc(shortPlace(ev.location))}${arrive}</span>${action}</div>
@@ -250,8 +251,10 @@
       toast(`${labelFor(b.dataset.v)}: saved to TeamSnap (demo)`);
       return;
     }
-    if (e.target.closest('.out')) {
-      toast('Opens SportsEngine (demo)');
+    const out = e.target.closest('.out');
+    if (out) {
+      const ev = events.find((x) => x.uid === out.dataset.uid);
+      toast(`Opens ${SOURCES[ev.kid.source]} (demo)`);
     }
   });
   $('days').addEventListener('click', (e) => {

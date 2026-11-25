@@ -70,6 +70,17 @@
     { uid: 'se-leo-2-game', week: 2, day: 6, time: '11:00', mins: 60, arrive: 45, title: 'Game vs Seattle', place: 'Lynnwood Ice Center' }
   );
 
+  // Sam plays basketball on GameChanger. GameChanger's calendar sync gives
+  // followers games only, so the demo shows games plus one team practice.
+  const sam = [
+    { uid: 'gc-sam--1-game', week: -1, day: 5, time: '13:00', mins: 60, arrive: 30, title: 'Game vs Cougars', place: 'Mount Si High, Gym' },
+    { uid: 'gc-sam-0-prac', week: 0, day: 4, time: '16:30', mins: 75, arrive: 10, title: 'Basketball practice', place: 'Snoqualmie Middle, Gym' },
+    { uid: 'gc-sam-0-game', week: 0, day: 5, time: '12:00', mins: 60, arrive: 30, title: 'Game vs Eagles', place: 'Mount Si High, Gym' },
+    { uid: 'gc-sam-1-prac', week: 1, day: 2, time: '16:30', mins: 75, arrive: 10, title: 'Basketball practice', place: 'Snoqualmie Middle, Gym' },
+    { uid: 'gc-sam-1-game', week: 1, day: 5, time: '10:00', mins: 60, arrive: 30, title: 'Game vs Falcons', place: 'Issaquah Community Center' },
+    { uid: 'gc-sam-2-game', week: 2, day: 5, time: '12:30', mins: 60, arrive: 30, title: 'Game vs Rockets', place: 'Mount Si High, Gym' },
+  ];
+
   // RSVPs already answered in TeamSnap before the parent opens the app.
   const answered = {
     'ts-ava--1-mon': 'going', 'ts-ava--1-wed': 'going', 'ts-ava--1-game': 'going',
@@ -81,6 +92,7 @@
     kids: [
       { name: 'Ava', color: '#e8743b', photo: 'ava.svg', source: 'teamsnap', team: 'Hawks U12 Soccer', ics: feed('Hawks U12 Soccer', base, ava) },
       { name: 'Leo', color: '#2f7fd1', source: 'sportsengine', team: 'Squirts Hockey', ics: feed('Squirts Hockey', base, leo) },
+      { name: 'Sam', color: '#0f9488', source: 'gamechanger', team: 'Wildcats 10U Basketball', ics: feed('Wildcats 10U Basketball', base, sam) },
     ],
     answered,
     weeks: [-1, 0, 1, 2],
