@@ -12,8 +12,8 @@
 <div class="layout">
   <main class="app" aria-label="Sports Week demo">
     <div class="demo-bar">
-      <span class="pill">Demo · sample data</span>
-      <button class="link" id="howBtn" type="button">How it works</button>
+      <span class="pill">Demo</span>
+      <button class="help" id="howBtn" type="button" aria-label="How it works" title="How it works">?</button>
     </div>
 
     <header class="top">
@@ -29,7 +29,7 @@
     </header>
 
     <button type="button" class="alert" id="rsvpAlert" hidden>
-      <span id="rsvpCount"></span><b>Answer ›</b>
+      <span id="rsvpCount"></span><b>›</b>
     </button>
 
     <section class="todo" id="todo" aria-label="To do" hidden></section>
@@ -44,13 +44,13 @@
   <aside class="how" id="how" aria-label="How it works">
     <button type="button" class="close" id="howClose" aria-label="Close">×</button>
     <h2>One week, both apps</h2>
-    <p class="how-sub">A parent sets it up once. Here's where each piece comes from:</p>
+    <p class="how-sub">Where each piece comes from:</p>
     <ol>
-      <li><b>Both schedules</b>The parent pastes each app's calendar link once. It's free, allowed, and updates on its own. This demo reads the same calendar format.</li>
-      <li><b>TeamSnap RSVPs</b>The parent taps "Sign in with TeamSnap" (TeamSnap's official login). Their RSVPs show here, and a tap answers.</li>
-      <li><b>SportsEngine RSVPs</b>SportsEngine has no sign-in for outside apps, so one tap opens that event in SportsEngine.</li>
-      <li class="ai"><b>To-dos from team emails</b>The parent has team emails forwarded to Sports Week. AI pulls out what to bring, wear, pay or sign, and links each item to the game. Tap one to see the email it came from.</li>
-      <li class="warn"><b>Clash check</b>Flags times when two kids need to be in two places at once. It works from the merged schedule, so it needs no extra data.</li>
+      <li><b>Both schedules</b>Each app's calendar link, pasted once.</li>
+      <li><b>TeamSnap RSVPs</b>Answered here through TeamSnap's sign-in.</li>
+      <li><b>SportsEngine RSVPs</b>One tap opens the event in SportsEngine.</li>
+      <li class="ai"><b>To-dos from team emails</b>AI reads forwarded team emails. Tap ✨ to see the source.</li>
+      <li class="warn"><b>Clash check</b>Two kids, two places, same time.</li>
     </ol>
   </aside>
 </div>
@@ -60,7 +60,7 @@
   <div class="mail-from" id="mailFrom"></div>
   <h2 id="mailSubj"></h2>
   <div class="mail-body" id="mailBody"></div>
-  <p class="mail-note">✨ AI turned the highlighted words into to-dos. The demo uses sample emails.</p>
+  <p class="mail-note">✨ Highlighted words became to-dos.</p>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 

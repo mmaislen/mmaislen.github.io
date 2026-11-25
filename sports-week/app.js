@@ -54,6 +54,7 @@
   // ---- View state ----
   let week = 0;
   let filter = 'all';
+  let showPast = false;
 
   // ---- Formatting ----
   const fmtTime = (d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
@@ -93,34 +94,30 @@
     ).join('');
   }
 
+  const ICONS = { going: '✓', maybe: '?', no: '✕' };
+  const shortPlace = (p) => (p || '').split(',')[0];
+  const shortTime = (d) => fmtTime(d).replace(' AM', '').replace(' PM', '');
+
   function eventCard(ev, now) {
     const past = ev.end < now;
     const src = ev.kid.source;
     const answer = rsvp(ev);
     let action = '';
-    if (src === 'teamsnap') {
-      if (past) {
-        action = `<div class="done">${answer ? 'You said: ' + labelFor(answer) : 'No reply sent'}</div>`;
-      } else {
-        action = '<div class="rsvp" role="group" aria-label="RSVP">' +
-          ['going', 'maybe', 'no'].map((v) =>
-            `<button type="button" class="b ${v}${answer === v ? ' on' : ''}" data-uid="${esc(ev.uid)}" data-v="${v}" aria-pressed="${answer === v}">${answer === v ? '✓ ' : ''}${labelFor(v)}</button>`
-          ).join('') + '</div>';
-      }
+    if (src === 'teamsnap' && !past) {
+      action = '<div class="rsvp" role="group" aria-label="RSVP">' +
+        ['going', 'maybe', 'no'].map((v) =>
+          `<button type="button" class="b ${v}${answer === v ? ' on' : ''}" data-uid="${esc(ev.uid)}" data-v="${v}" aria-pressed="${answer === v}" aria-label="${labelFor(v)}" title="${labelFor(v)}">${ICONS[v]}</button>`
+        ).join('') + '</div>';
     } else if (!past) {
-      action = `<button type="button" class="out" data-uid="${esc(ev.uid)}">RSVP in SportsEngine ↗</button>`;
+      action = `<button type="button" class="out" data-uid="${esc(ev.uid)}" title="Opens SportsEngine">RSVP ↗</button>`;
     }
-    const arrive = ev.arrive ? ` · arrive ${fmtTime(ev.arrive)}` : '';
-    const evTodos = todos.filter((t) => t.ev === ev);
-    const todoLine = evTodos.length
-      ? `<div class="ev-todo">✨ ${evTodos.map((t) => `<span class="${isDone(t) ? 'struck' : ''}">${esc(t.text)}</span>`).join(' · ')}</div>`
-      : '';
+    const arrive = ev.arrive ? ` · arrive ${shortTime(ev.arrive)}` : '';
     return `<article class="ev${past ? ' past' : ''}${!answer && src === 'teamsnap' && !past ? ' needs' : ''}" style="--kid:${ev.kid.color}" id="ev-${esc(ev.uid)}">
-      <div class="row"><h3>${esc(ev.kid.name)} · ${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
-      <div class="meta">${esc(ev.location || '')}${arrive}</div>
-      ${todoLine}
-      ${action}
-      <div class="src">${SOURCES[src].toUpperCase()}</div>
+      <span class="av" aria-label="${esc(ev.kid.name)}">${esc(ev.kid.name[0])}</span>
+      <div class="ev-main">
+        <div class="row"><h3>${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
+        <div class="row2"><span class="meta">${esc(shortPlace(ev.location))}${arrive}</span>${action}</div>
+      </div>
     </article>`;
   }
 
@@ -144,7 +141,7 @@
     // RSVPs that still need an answer (upcoming TeamSnap events this week)
     const open = shown.filter((e) => e.kid.source === 'teamsnap' && e.end >= now && !rsvp(e));
     $('rsvpAlert').hidden = open.length === 0;
-    $('rsvpCount').textContent = `${open.length} RSVP${open.length === 1 ? '' : 's'} need${open.length === 1 ? 's' : ''} you`;
+    $('rsvpCount').textContent = `${open.length} RSVP${open.length === 1 ? '' : 's'} to answer`;
 
     renderTodos(start, end);
 
@@ -152,28 +149,23 @@
     const clashList = clashes(inWeek.filter((e) => e.end >= now));
 
     const days = [];
+    let hiddenPast = 0;
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
       const dayEvents = shown.filter((e) => sameDay(e.start, d));
       if (!dayEvents.length) continue;
+      if (week === 0 && d < todayStart && !showPast) { hiddenPast += dayEvents.length; continue; }
       const dayClashes = clashList.filter(([a, b]) => sameDay(a.start, d) &&
         (filter === 'all' || a.kid.name === filter || b.kid.name === filter));
       const label = d.toLocaleDateString('en-US', { weekday: 'short' }) + ' · ' + fmtShort(d);
       const today = sameDay(d, now) ? '<span class="today">Today</span>' : '';
-      const warn = dayClashes.map(([a, b]) => {
-        const [first, second] = a.start <= b.start ? [a, b] : [b, a];
-        return `<div class="clash">⚠ ${esc(first.kid.name)} ${fmtTime(first.start)} and ${esc(second.kid.name)} ${fmtTime(second.start)}, different places</div>`;
-      }).join('');
-      days.push(`<div class="day"><h2>${label}${today}</h2>${warn}${dayEvents.map((e) => eventCard(e, now)).join('')}</div>`);
+      const warn = dayClashes.length
+        ? `<span class="clash" title="Two kids, two places, same time">⚠ ${esc(dayClashes[0][0].kid.name)} &amp; ${esc(dayClashes[0][1].kid.name)} overlap</span>`
+        : '';
+      days.push(`<div class="day"><h2>${label}${today}${warn}</h2>${dayEvents.map((e) => eventCard(e, now)).join('')}</div>`);
     }
-    $('days').innerHTML = days.length ? days.join('') : '<p class="empty">Nothing scheduled this week.</p>';
-  }
-
-  function whenLabel(t) {
-    const day = t.when.toLocaleDateString('en-US', { weekday: 'short' });
-    if (!t.ev) return 'due ' + day;
-    const title = t.ev.title;
-    const kind = /^Game/.test(title) ? 'game' : /practice/i.test(title) ? 'practice' : title.toLowerCase();
-    return `${day} ${kind}`;
+    const more = hiddenPast ? `<button type="button" class="earlier" id="earlier">Show earlier (${hiddenPast})</button>` : '';
+    $('days').innerHTML = more + (days.length ? days.join('') : '<p class="empty">Nothing else this week.</p>');
   }
 
   function renderTodos(start, end) {
@@ -182,17 +174,16 @@
     box.hidden = list.length === 0;
     if (!list.length) { box.innerHTML = ''; return; }
     const open = list.filter((t) => !isDone(t)).length;
-    box.innerHTML = `<h2>To do${week === 0 ? ' this week' : ''}<span class="count">${open ? open + ' left' : 'All done'}</span></h2>` +
+    box.innerHTML = `<h2>To do<span class="count">${open || '✓'}</span></h2>` +
       list.map((t) => {
         const done = isDone(t);
-        const pay = t.action === 'pay' && !done ? '<button type="button" class="out pay">Pay in SportsEngine ↗</button>' : '';
-        return `<div class="td${done ? ' done' : ''}">
-          <button type="button" class="cb" data-todo="${esc(t.id)}" aria-pressed="${done}" aria-label="Mark done: ${esc(t.text)}">${done ? '✓' : ''}</button>
-          <div class="td-body">
-            <div class="td-text">${esc(t.text)}</div>
-            <div class="td-meta"><span class="dot" style="background:${t.kidObj.color}"></span>${esc(t.kid)} · ${whenLabel(t)} · <button type="button" class="from" data-todo="${esc(t.id)}">✨ ${esc(t.mail.from)}'s email</button></div>
-            ${pay}
-          </div>
+        const day = t.when.toLocaleDateString('en-US', { weekday: 'short' });
+        const pay = t.action === 'pay' && !done ? '<button type="button" class="pay">Pay ↗</button>' : '';
+        return `<div class="td${done ? ' done' : ''}" style="--kid:${t.kidObj.color}">
+          <button type="button" class="cb" data-todo="${esc(t.id)}" aria-pressed="${done}" aria-label="${esc(t.kid)}: ${esc(t.text)}">${done ? '✓' : ''}</button>
+          <span class="td-text">${esc(t.text)}</span>
+          ${pay}<span class="td-day">${day}</span>
+          <button type="button" class="from" data-todo="${esc(t.id)}" aria-label="See the email from ${esc(t.mail.from)}" title="From ${esc(t.mail.from)}">✨</button>
         </div>`;
       }).join('');
   }
@@ -241,20 +232,23 @@
     filter = b.dataset.key;
     render();
   });
-  $('prevWeek').addEventListener('click', () => { week--; render(); });
-  $('nextWeek').addEventListener('click', () => { week++; render(); });
+  $('prevWeek').addEventListener('click', () => { week--; showPast = false; render(); });
+  $('nextWeek').addEventListener('click', () => { week++; showPast = false; render(); });
   $('days').addEventListener('click', (e) => {
     const b = e.target.closest('.b');
     if (b) {
       const ev = events.find((x) => x.uid === b.dataset.uid);
       setRsvp(ev, b.dataset.v);
       render();
-      toast(`Saved: ${labelFor(b.dataset.v)}. The real app sends this to TeamSnap.`);
+      toast(`${labelFor(b.dataset.v)}: saved to TeamSnap (demo)`);
       return;
     }
     if (e.target.closest('.out')) {
-      toast('The real app opens this event in SportsEngine.');
+      toast('Opens SportsEngine (demo)');
     }
+  });
+  $('days').addEventListener('click', (e) => {
+    if (e.target.closest('#earlier')) { showPast = true; render(); }
   });
   $('rsvpAlert').addEventListener('click', () => {
     const first = document.querySelector('.ev.needs');
@@ -277,7 +271,7 @@
       openMail(todos.find((x) => x.id === from.dataset.todo));
       return;
     }
-    if (e.target.closest('.pay')) toast('The real app opens this payment in SportsEngine.');
+    if (e.target.closest('.pay')) toast('Opens SportsEngine to pay (demo)');
   });
   $('howBtn').addEventListener('click', () => openHow(true));
   $('howClose').addEventListener('click', () => openHow(false));

@@ -111,12 +111,12 @@
   ];
 
   window.DEMO.todos = [
-    { id: 't-snack', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-0-game', text: 'Bring orange slices and water for 14', quote: 'Orange slices and water for 14' },
+    { id: 't-snack', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-0-game', text: 'Orange slices + water for 14', quote: 'Orange slices and water for 14' },
     { id: 't-white', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-0-game', text: 'Wear white jersey', quote: 'wear white jerseys' },
-    { id: 't-photos', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-1-wed', text: 'Team photos: arrive at 5:00', quote: 'Arrive at 5:00 so we can shoot before practice' },
+    { id: 't-photos', email: 'e-hawks-sat', kid: 'Ava', event: 'ts-ava-1-wed', text: 'Photo day: arrive 5:00', quote: 'Arrive at 5:00 so we can shoot before practice' },
     { id: 't-fee', email: 'e-squirts-fee', kid: 'Leo', due: { week: 0, day: 4 }, text: 'Pay $40 tournament fee', quote: '$40 per player, due Friday in SportsEngine', action: 'pay' },
     { id: 't-dark', email: 'e-squirts-fee', kid: 'Leo', event: 'se-leo-0-game', text: 'Pack dark jersey', quote: 'Dark jerseys' },
-    { id: 't-dish', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: 'Bring a dish to share', quote: 'Bring a dish to share' },
-    { id: 't-gift', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: '$10 for the coaches\' gift', quote: 'bring $10 in an envelope' },
+    { id: 't-dish', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: 'Bring a dish', quote: 'Bring a dish to share' },
+    { id: 't-gift', email: 'e-hawks-party', kid: 'Ava', event: 'ts-ava-1-party', text: '$10 coach gift', quote: 'bring $10 in an envelope' },
   ];
 })();
