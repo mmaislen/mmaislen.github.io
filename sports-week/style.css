@@ -157,3 +157,9 @@ body.how-open .how { transform: none; visibility: visible; }
 .pay { font-size: 12px; font-weight: 650; color: var(--link); border: 1.5px solid #cfe0f5; border-radius: 8px; padding: 2px 7px; flex: none; }
 .from { color: #6a4fc4; display: inline-flex; align-items: center; justify-content: center; }
 .mail-ico { color: #6a4fc4; font-weight: 700; }
+
+/* Kid photos (from TeamSnap when shared) with initials as the fallback */
+.av.photo { object-fit: cover; background: #fff; box-shadow: 0 0 0 2px var(--kid); width: 26px; height: 26px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.chip-av { width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 750; color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-left: -6px; background: var(--kid); }
+.chip-av.photo { object-fit: cover; background: #fff; box-shadow: 0 0 0 2px var(--kid); }

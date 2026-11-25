@@ -79,7 +79,7 @@
   window.DEMO = {
     weekStart: base,
     kids: [
-      { name: 'Ava', color: '#e8743b', source: 'teamsnap', team: 'Hawks U12 Soccer', ics: feed('Hawks U12 Soccer', base, ava) },
+      { name: 'Ava', color: '#e8743b', photo: 'ava.svg', source: 'teamsnap', team: 'Hawks U12 Soccer', ics: feed('Hawks U12 Soccer', base, ava) },
       { name: 'Leo', color: '#2f7fd1', source: 'sportsengine', team: 'Squirts Hockey', ics: feed('Squirts Hockey', base, leo) },
     ],
     answered,

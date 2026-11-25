@@ -87,13 +87,19 @@
 
   // ---- Render ----
   function renderChips() {
-    const opts = [{ key: 'all', label: 'All' }, ...DEMO.kids.map((k) => ({ key: k.name, label: k.name, color: k.color }))];
+    const opts = [{ key: 'all', label: 'All' }, ...DEMO.kids.map((k) => ({ key: k.name, label: k.name, kid: k }))];
     $('chips').innerHTML = opts.map((o) =>
-      `<button type="button" class="chip${filter === o.key ? ' on' : ''}" data-key="${esc(o.key)}" aria-pressed="${filter === o.key}">` +
-      (o.color ? `<span class="dot" style="background:${o.color}"></span>` : '') + esc(o.label) + '</button>'
+      `<button type="button" class="chip${filter === o.key ? ' on' : ''}" data-key="${esc(o.key)}" aria-pressed="${filter === o.key}"${o.kid ? ` style="--kid:${o.kid.color}"` : ''}>` +
+      (o.kid ? avatar(o.kid, 'chip-av') : '') + esc(o.label) + '</button>'
     ).join('');
   }
 
+  // Kid photo when the team app shares one (TeamSnap), else their initial
+  function avatar(kid, cls) {
+    return kid.photo
+      ? `<img class="${cls} photo" src="${esc(kid.photo)}" alt="${esc(kid.name)}">`
+      : `<span class="${cls}" aria-label="${esc(kid.name)}">${esc(kid.name[0])}</span>`;
+  }
   const ICONS = { going: '✓', maybe: '?', no: '✕' };
   const MAIL_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>';
   const shortPlace = (p) => (p || '').split(',')[0];
@@ -114,7 +120,7 @@
     }
     const arrive = ev.arrive ? ` · arrive ${shortTime(ev.arrive)}` : '';
     return `<article class="ev${past ? ' past' : ''}${!answer && src === 'teamsnap' && !past ? ' needs' : ''}" style="--kid:${ev.kid.color}" id="ev-${esc(ev.uid)}">
-      <span class="av" aria-label="${esc(ev.kid.name)}">${esc(ev.kid.name[0])}</span>
+      ${avatar(ev.kid, 'av')}
       <div class="ev-main">
         <div class="row"><h3>${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
         <div class="row2"><span class="meta">${esc(shortPlace(ev.location))}${arrive}</span>${action}</div>
