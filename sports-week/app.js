@@ -1,0 +1,293 @@
+(function () {
+  const SOURCES = { teamsnap: 'TeamSnap', sportsengine: 'SportsEngine', gamechanger: 'GameChanger' };
+  const BADGES = { teamsnap: 'TS', sportsengine: 'SE', gamechanger: 'GC' };
+  const STORE_KEY = 'sports-week-rsvps';
+  const $ = (id) => document.getElementById(id);
+
+  // ---- Data: read every kid's feed and merge into one list ----
+  const events = [];
+  for (const kid of DEMO.kids) {
+    for (const ev of ICS.parse(kid.ics)) {
+      const m = /Arrive (\d+) min/.exec(ev.description || '');
+      const early = m ? +m[1] : 0;
+      events.push({
+        ...ev,
+        kid,
+        arrive: early ? new Date(ev.start.getTime() - early * 60000) : null,
+      });
+    }
+  }
+  events.sort((a, b) => a.start - b.start);
+
+  // ---- To-dos the AI pulled from team emails ----
+  const emailsById = Object.fromEntries((DEMO.emails || []).map((m) => [m.id, m]));
+  function dayDate(w, d) {
+    const x = new Date(DEMO.weekStart);
+    x.setDate(x.getDate() + w * 7 + d);
+    return x;
+  }
+  const todos = (DEMO.todos || []).map((t) => {
+    const ev = t.event ? events.find((e) => e.uid === t.event) : null;
+    return {
+      ...t,
+      ev,
+      when: ev ? ev.start : dayDate(t.due.week, t.due.day),
+      kidObj: DEMO.kids.find((k) => k.name === t.kid),
+      mail: emailsById[t.email],
+    };
+  }).sort((a, b) => a.when - b.when);
+
+  // ---- RSVP state (kept in this browser only) ----
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) { saved = {}; }
+  const rsvp = (ev) => saved[ev.uid] || DEMO.answered[ev.uid] || null;
+  function setRsvp(ev, value) {
+    saved[ev.uid] = value;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) { /* demo only */ }
+  }
+
+  const isDone = (t) => !!saved['todo:' + t.id];
+  function setDone(t, value) {
+    if (value) saved['todo:' + t.id] = true; else delete saved['todo:' + t.id];
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) { /* demo only */ }
+  }
+
+  // ---- View state ----
+  let week = 0;
+  let filter = 'all';
+  let showPast = false;
+
+  // ---- Formatting ----
+  const fmtTime = (d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const fmtShort = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const sameDay = (a, b) => a.toDateString() === b.toDateString();
+  function weekBounds(w) {
+    const start = new Date(DEMO.weekStart);
+    start.setDate(start.getDate() + w * 7);
+    const end = new Date(start);
+    end.setDate(end.getDate() + 7);
+    return [start, end];
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  }
+
+  // ---- Clash check: two kids, overlapping (arrival to end), different places ----
+  function clashes(list) {
+    const out = [];
+    for (let i = 0; i < list.length; i++) {
+      for (let j = i + 1; j < list.length; j++) {
+        const a = list[i], b = list[j];
+        if (a.kid === b.kid || a.location === b.location) continue;
+        const aStart = a.arrive || a.start, bStart = b.arrive || b.start;
+        if (aStart < b.end && bStart < a.end) out.push([a, b]);
+      }
+    }
+    return out;
+  }
+
+  // ---- Render ----
+  function renderChips() {
+    const opts = [{ key: 'all', label: 'All' }, ...DEMO.kids.map((k) => ({ key: k.name, label: k.name, kid: k }))];
+    $('chips').innerHTML = opts.map((o) =>
+      `<button type="button" class="chip${filter === o.key ? ' on' : ''}" data-key="${esc(o.key)}" aria-pressed="${filter === o.key}"${o.kid ? ` style="--kid:${o.kid.color}"` : ''}>` +
+      (o.kid ? avatar(o.kid, 'chip-av') : '') + esc(o.label) + '</button>'
+    ).join('');
+  }
+
+  // Kid photo when the team app shares one (TeamSnap), else their initial
+  function avatar(kid, cls) {
+    return kid.photo
+      ? `<img class="${cls} photo" src="${esc(kid.photo)}" alt="${esc(kid.name)}">`
+      : `<span class="${cls}" aria-label="${esc(kid.name)}">${esc(kid.name[0])}</span>`;
+  }
+  const ICONS = { going: '✓', maybe: '?', no: '✕' };
+  const MAIL_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>';
+  const shortPlace = (p) => (p || '').split(',')[0];
+  const shortTime = (d) => fmtTime(d).replace(' AM', '').replace(' PM', '');
+
+  function eventCard(ev, now) {
+    const past = ev.end < now;
+    const src = ev.kid.source;
+    const answer = rsvp(ev);
+    let action = '';
+    if (src === 'teamsnap' && !past) {
+      action = '<div class="rsvp" role="group" aria-label="RSVP">' +
+        ['going', 'maybe', 'no'].map((v) =>
+          `<button type="button" class="b ${v}${answer === v ? ' on' : ''}" data-uid="${esc(ev.uid)}" data-v="${v}" aria-pressed="${answer === v}" aria-label="${labelFor(v)}" title="${labelFor(v)}">${ICONS[v]}</button>`
+        ).join('') + '</div>';
+    } else if (!past) {
+      action = `<button type="button" class="out" data-uid="${esc(ev.uid)}" title="Opens ${SOURCES[src]}">RSVP ↗</button>`;
+    }
+    const arrive = ev.arrive ? ` · arrive ${shortTime(ev.arrive)}` : '';
+    return `<article class="ev${past ? ' past' : ''}${!answer && src === 'teamsnap' && !past ? ' needs' : ''}" style="--kid:${ev.kid.color}" id="ev-${esc(ev.uid)}">
+      <span class="av-wrap">${avatar(ev.kid, 'av')}<span class="app-badge" title="From ${SOURCES[src]}" aria-label="From ${SOURCES[src]}">${BADGES[src]}</span></span>
+      <div class="ev-main">
+        <div class="row"><h3>${esc(ev.title)}</h3><span class="time">${fmtTime(ev.start)}</span></div>
+        <div class="row2"><span class="meta">${esc(shortPlace(ev.location))}${arrive}</span>${action}</div>
+      </div>
+    </article>`;
+  }
+
+  function labelFor(v) {
+    return { going: 'Going', maybe: 'Maybe', no: "Can't" }[v];
+  }
+
+  function render() {
+    const now = new Date();
+    const [start, end] = weekBounds(week);
+    const inWeek = events.filter((e) => e.start >= start && e.start < end);
+    const shown = inWeek.filter((e) => filter === 'all' || e.kid.name === filter);
+    const lastDay = new Date(end); lastDay.setDate(lastDay.getDate() - 1);
+
+    $('weekTitle').textContent = week === 0 ? 'This week' : week === 1 ? 'Next week' : week === -1 ? 'Last week' : 'Week of ' + fmtShort(start);
+    $('weekRange').textContent = `${fmtShort(start)} – ${fmtShort(lastDay)}`;
+    $('prevWeek').disabled = week <= Math.min(...DEMO.weeks);
+    $('nextWeek').disabled = week >= Math.max(...DEMO.weeks);
+    renderChips();
+
+    // RSVPs that still need an answer (upcoming TeamSnap events this week)
+    const open = shown.filter((e) => e.kid.source === 'teamsnap' && e.end >= now && !rsvp(e));
+    $('rsvpAlert').hidden = open.length === 0;
+    $('rsvpCount').textContent = `${open.length} RSVP${open.length === 1 ? '' : 's'} to answer`;
+
+    renderTodos(start, end);
+
+    // Clashes are always checked across all kids, even when one is filtered
+    const clashList = clashes(inWeek.filter((e) => e.end >= now));
+
+    const days = [];
+    let hiddenPast = 0;
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+      const dayEvents = shown.filter((e) => sameDay(e.start, d));
+      if (!dayEvents.length) continue;
+      if (week === 0 && d < todayStart && !showPast) { hiddenPast += dayEvents.length; continue; }
+      const dayClashes = clashList.filter(([a, b]) => sameDay(a.start, d) &&
+        (filter === 'all' || a.kid.name === filter || b.kid.name === filter));
+      const label = d.toLocaleDateString('en-US', { weekday: 'short' }) + ' · ' + fmtShort(d);
+      const today = sameDay(d, now) ? '<span class="today">Today</span>' : '';
+      const warn = dayClashes.length
+        ? `<span class="clash" title="Two kids, two places, same time">⚠ ${esc(dayClashes[0][0].kid.name)} &amp; ${esc(dayClashes[0][1].kid.name)} overlap</span>`
+        : '';
+      days.push(`<div class="day"><h2>${label}${today}${warn}</h2>${dayEvents.map((e) => eventCard(e, now)).join('')}</div>`);
+    }
+    const more = hiddenPast ? `<button type="button" class="earlier" id="earlier">Show earlier (${hiddenPast})</button>` : '';
+    $('days').innerHTML = more + (days.length ? days.join('') : '<p class="empty">Nothing else this week.</p>');
+  }
+
+  function renderTodos(start, end) {
+    const list = todos.filter((t) => t.when >= start && t.when < end && (filter === 'all' || t.kid === filter));
+    const box = $('todo');
+    box.hidden = list.length === 0;
+    if (!list.length) { box.innerHTML = ''; return; }
+    const open = list.filter((t) => !isDone(t)).length;
+    box.innerHTML = `<h2>To do<span class="count">${open || '✓'}</span></h2>` +
+      list.map((t) => {
+        const done = isDone(t);
+        const day = t.when.toLocaleDateString('en-US', { weekday: 'short' });
+        const pay = t.action === 'pay' && !done ? '<button type="button" class="pay">Pay ↗</button>' : '';
+        return `<div class="td${done ? ' done' : ''}" style="--kid:${t.kidObj.color}">
+          <button type="button" class="cb" data-todo="${esc(t.id)}" aria-pressed="${done}" aria-label="${esc(t.kid)}: ${esc(t.text)}">${done ? '✓' : ''}</button>
+          <span class="td-text">${esc(t.text)}</span>
+          ${pay}<span class="td-day">${day}</span>
+          <button type="button" class="from" data-todo="${esc(t.id)}" aria-label="See the email from ${esc(t.mail.from)}" title="Email from ${esc(t.mail.from)}">${MAIL_ICON}</button>
+        </div>`;
+      }).join('');
+  }
+
+  // ---- Email source view ----
+  function openMail(t) {
+    const m = t.mail;
+    const sent = dayDate(m.week, m.day).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    $('mailFrom').textContent = `${m.from} · via ${SOURCES[m.source]} · ${sent}`;
+    $('mailSubj').textContent = m.subject;
+    let body = esc(m.body);
+    for (const other of todos.filter((x) => x.mail === m)) {
+      const q = esc(other.quote);
+      body = body.replace(q, `<mark class="${other === t ? 'this' : ''}">${q}</mark>`);
+    }
+    $('mailBody').innerHTML = body.replace(/\n/g, '<br>');
+    $('mail').hidden = false;
+    $('scrim').hidden = false;
+    $('mailClose').focus();
+  }
+  function closeMail() {
+    $('mail').hidden = true;
+    if (!document.body.classList.contains('how-open')) $('scrim').hidden = true;
+  }
+
+  // ---- Toast ----
+  let toastTimer;
+  function toast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 2800);
+  }
+
+  // ---- How it works sheet (phones) ----
+  function openHow(open) {
+    document.body.classList.toggle('how-open', open);
+    $('scrim').hidden = !open;
+  }
+
+  // ---- Events ----
+  $('chips').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip');
+    if (!b) return;
+    filter = b.dataset.key;
+    render();
+  });
+  $('prevWeek').addEventListener('click', () => { week--; showPast = false; render(); });
+  $('nextWeek').addEventListener('click', () => { week++; showPast = false; render(); });
+  $('days').addEventListener('click', (e) => {
+    const b = e.target.closest('.b');
+    if (b) {
+      const ev = events.find((x) => x.uid === b.dataset.uid);
+      setRsvp(ev, b.dataset.v);
+      render();
+      toast(`${labelFor(b.dataset.v)}: saved to TeamSnap (demo)`);
+      return;
+    }
+    const out = e.target.closest('.out');
+    if (out) {
+      const ev = events.find((x) => x.uid === out.dataset.uid);
+      toast(`Opens ${SOURCES[ev.kid.source]} (demo)`);
+    }
+  });
+  $('days').addEventListener('click', (e) => {
+    if (e.target.closest('#earlier')) { showPast = true; render(); }
+  });
+  $('rsvpAlert').addEventListener('click', () => {
+    const first = document.querySelector('.ev.needs');
+    if (!first) return;
+    first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    first.classList.remove('flash');
+    void first.offsetWidth;
+    first.classList.add('flash');
+  });
+  $('todo').addEventListener('click', (e) => {
+    const cb = e.target.closest('.cb');
+    if (cb) {
+      const t = todos.find((x) => x.id === cb.dataset.todo);
+      setDone(t, !isDone(t));
+      render();
+      return;
+    }
+    const from = e.target.closest('.from');
+    if (from) {
+      openMail(todos.find((x) => x.id === from.dataset.todo));
+      return;
+    }
+    if (e.target.closest('.pay')) toast('Opens SportsEngine to pay (demo)');
+  });
+  $('howBtn').addEventListener('click', () => openHow(true));
+  $('howClose').addEventListener('click', () => openHow(false));
+  $('mailClose').addEventListener('click', closeMail);
+  $('scrim').addEventListener('click', () => { closeMail(); openHow(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMail(); openHow(false); } });
+
+  render();
+})();
