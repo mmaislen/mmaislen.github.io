@@ -155,3 +155,5 @@ body.how-open .how { transform: none; visibility: visible; }
 .from { font-size: 15px; width: 26px; height: 26px; border-radius: 50%; flex: none; }
 .from:hover { background: #ece6fa; }
 .pay { font-size: 12px; font-weight: 650; color: var(--link); border: 1.5px solid #cfe0f5; border-radius: 8px; padding: 2px 7px; flex: none; }
+.from { color: #6a4fc4; display: inline-flex; align-items: center; justify-content: center; }
+.mail-ico { color: #6a4fc4; font-weight: 700; }

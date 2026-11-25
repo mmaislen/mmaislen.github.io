@@ -95,6 +95,7 @@
   }
 
   const ICONS = { going: '✓', maybe: '?', no: '✕' };
+  const MAIL_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>';
   const shortPlace = (p) => (p || '').split(',')[0];
   const shortTime = (d) => fmtTime(d).replace(' AM', '').replace(' PM', '');
 
@@ -183,7 +184,7 @@
           <button type="button" class="cb" data-todo="${esc(t.id)}" aria-pressed="${done}" aria-label="${esc(t.kid)}: ${esc(t.text)}">${done ? '✓' : ''}</button>
           <span class="td-text">${esc(t.text)}</span>
           ${pay}<span class="td-day">${day}</span>
-          <button type="button" class="from" data-todo="${esc(t.id)}" aria-label="See the email from ${esc(t.mail.from)}" title="From ${esc(t.mail.from)}">✨</button>
+          <button type="button" class="from" data-todo="${esc(t.id)}" aria-label="See the email from ${esc(t.mail.from)}" title="Email from ${esc(t.mail.from)}">${MAIL_ICON}</button>
         </div>`;
       }).join('');
   }
